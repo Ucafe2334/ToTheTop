@@ -1,8 +1,7 @@
-import ClassData.Arena;
-import ClassData.Race;
-import ClassData.Weapon;
+import Engines.Battles;
+import BaseClass.Race;
 import Data.DataRace;
-import Data.DataWeapon;
+import Engines.Player;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -15,27 +14,21 @@ public class Engine {
             Random random = new Random();
 
             DataRace race = new DataRace();
-            DataWeapon weapon = new DataWeapon();
 
             race.getRace();
-            System.out.print("Select Your Race : ");
-            int playerId = Ch1.nextInt();
-            Race Player = race.getRace(playerId);
+            System.out.println("Select Your Race : ");
+            int raceId = Ch1.nextInt();
+            System.out.println("enter your name : ");
+            String playerName = Ch2.nextLine();
+            Race playerrace = race.getRace(raceId);
+            Player player = new Player(playerName,playerrace);
 
-            weapon.getWeapon();
-            System.out.print("Select Your Weapon : ");
-            int weaponId = Ch2.nextInt();
-            System.out.println(weaponId);
-            Weapon PlayerWeapon = weapon.getWeapon(weaponId);
-            Player.setWeapon(PlayerWeapon);
 
             int SelectedAi1 = random.nextInt(3-1) + 1;
-            Race Ai = race.getRace(SelectedAi1);
-            int SelectedAi2 = random.nextInt(3-1) + 1;
-            Weapon AiWeapon = weapon.getWeapon(SelectedAi2);
-            Ai.setWeapon(AiWeapon);
+            Race aiRace = race.getRace(SelectedAi1);
+            Player Ai = new Player("Computer 1",aiRace);
 
-            Arena.NewGame(Player, Ai);
+            Battles.NewGame(player, Ai);
         }catch (Exception e){
             System.out.println("ERROR!!");
         }

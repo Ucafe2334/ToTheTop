@@ -1,6 +1,6 @@
 package Data;
 
-import ClassData.Weapon;
+import BaseClass.Weapon;
 import java.util.HashMap;
 import java.util.Map;
 

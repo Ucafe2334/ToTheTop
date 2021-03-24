@@ -1,8 +1,7 @@
 package Data;
 
-import ClassData.Race;
+import BaseClass.Race;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class DataRace {
@@ -20,8 +19,8 @@ public class DataRace {
             Race idRace = entry.getValue();
 
             System.out.println(id + "> " + idRace.getName());
-            System.out.println("HP : " + idRace.getHP() + "/" + idRace.getMaxHP());
-            System.out.println("MP : " + idRace.getMP() + "/" + idRace.getMAXMP());
+            System.out.println("HP : " + idRace.getMaxHP());
+            System.out.println("MP : " + idRace.getMaxMP());
             System.out.println("STR/INT/EN/AGI");
             System.out.println(idRace.getSTR() + "/" + idRace.getINT() + "/" + idRace.getEN() + "/" + idRace.getAGI());
             System.out.println(" ");
