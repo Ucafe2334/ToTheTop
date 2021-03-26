@@ -1,6 +1,6 @@
-package Engines;
+package GameSystem;
 
-import Engines.Commands.BattleCommands;
+import GameSystem.Commands.BattleCommands;
 
 import java.util.Random;
 import java.util.Scanner;

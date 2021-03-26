@@ -1,26 +1,29 @@
-package Engines;
+package GameSystem;
 
+import BaseClass.Item;
 import BaseClass.Race;
 import BaseClass.Weapon;
 
 public class Player {
     //ini yang bakal berubah
     private String playerName;
-    protected Race race; //ras yang dipilih
-    private int HP; //health poin player
-    private int MP; //mana poin player
-    private int PA; //physical attack player
-    private int MA; //magic attack player
-    private int deff; //defence player
-    private int speed; //speed player
-    private boolean Guard; //status dalam posisi guard
+    protected Race race; //choosen Race
+    private int HP; //total health poin player
+    private int MP; //total mana poin player
+    private int PA; //total physical attack player
+    private int MA; //total magic attack player
+    private int deff; //total defence player
+    private int speed; //total speed player
+    private boolean Guard; //status on guard position or not
 
     //equiped
     private Weapon weapon; //weapon yang di equip
+    //armor yang di equip
+    //accesories yang di equip
 
     //inventory
-    // Item [50];
-    //int Cap;
+    private Item[] inventory;
+    private int Cap;
 
 
     public Player(String name, Race race) {
@@ -32,6 +35,8 @@ public class Player {
         this.MA = (race.getSTR()+(race.getINT()*5))/2;
         this.deff = race.getEN()*3+ race.getSTR();
         this.speed = race.getAGI()*2- race.getEN();
+        this.weapon = weapon;
+        Cap = 0;
         Guard = false;
     }
 
@@ -63,6 +68,19 @@ public class Player {
         return weapon;
     }
 
+    public void getAllInventory(){
+       Item[] allItem = this.inventory;
+        for(int i=0;i<50;i++){
+           Item item = allItem[i];
+           System.out.println(i+1+")");
+           System.out.println(item.getName());
+           System.out.println(item.getDesc());
+        }
+    }
+    public Item getInventoryItem(int i){
+        Item[] allItem = this.inventory;
+        return allItem[i];
+    }
     boolean isDead(){
         return this.getHP() <= 0;
     }
@@ -91,5 +109,6 @@ public class Player {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
 
 }

@@ -1,5 +1,5 @@
-package Engines.Commands;
-import Engines.Player;
+package GameSystem.Commands;
+import GameSystem.Player;
 import BaseClass.Race;
 
 

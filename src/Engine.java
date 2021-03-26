@@ -1,7 +1,7 @@
-import Engines.Battles;
+import GameSystem.Battles;
 import BaseClass.Race;
 import Data.DataRace;
-import Engines.Player;
+import GameSystem.Player;
 
 import java.util.Random;
 import java.util.Scanner;
