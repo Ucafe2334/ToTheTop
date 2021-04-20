@@ -65,6 +65,15 @@ public class BasicAttribute {
     public void setMA(int MA) {
         this.MA = MA;
     }
+    public void setMaxHP(int maxHP) {
+        MaxHP = maxHP;
+    }
+    public void setMaxMP(int maxMP) {
+        MaxMP = maxMP;
+    }
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
     public void setDeff(int deff) {
         this.deff = deff;
     }

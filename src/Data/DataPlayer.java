@@ -10,7 +10,7 @@ public class DataPlayer {
 
     public DataPlayer(){
         this.DataPlayer.put(1, new Player("Humans","",1000,1000,150,150,70,100));
-        this.DataPlayer.put(2, new Player("Orc","",1500,0,200,0,200,50));
+        this.DataPlayer.put(2, new Player("Orc","",1500,0,200,0,100,50));
         this.DataPlayer.put(3, new Player("Elf","",800,1500,100,200,50,80));
     }
 

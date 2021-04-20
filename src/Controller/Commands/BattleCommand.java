@@ -1,9 +1,9 @@
 package Controller.Commands;
+
 import Model.Characters;
 
-
-public class BattleCommands{
-    public void attack (Characters player, Characters enemy){
+public interface BattleCommand {
+    static void attack (Characters player, Characters enemy){
 
         String PlayerName = player.getName();
         int PlayerAttack = player.getPA();
@@ -40,13 +40,13 @@ public class BattleCommands{
         System.out.println("---------------Next Turn--------------");
     }
 
-    public void guard (Characters player){
+    static void guard (Characters player){
         player.setGuard(true);
         System.out.println(player.getName() + " Ready To Guard Next Attack");
         System.out.println("---------------Next Turn--------------");
     }
 
-    public void skip(Characters player){
+    static void skip(Characters player){
         String PlayerName = player.getName();
         int PlayerCurrentHP = player.getHP();
         int PlayerMaxHP = player.getMaxHP();
@@ -64,7 +64,7 @@ public class BattleCommands{
         System.out.println("---------------Next Turn--------------");
     }
 
-    public void showstatus(Characters player){
+    static void showstatus(Characters player){
         System.out.println(player.getName() + " Current Turn");
         System.out.println("HP         : " + player.getHP() + "/" + player.getMaxHP());
         System.out.println("MP         : " + player.getMP() + "/" + player.getMaxMP());

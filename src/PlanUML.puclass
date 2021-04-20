@@ -1,0 +1,49 @@
+@startuml
+interface BattleCommands{
+    + attack ()
+    + guard ()
+    + skip()
+    + showstatus()
+}
+
+class Battles {
+    - int turn
+    - boolean EndGame
+
+    + Battle()
+    + battleAi ()
+    + NewGame ()
+}
+
+class DataEnemy{
+    - HashMap<Integer, Enemy> DataPlayer
+    + DataEnemy()
+    + getEnemy()
+}
+DataEnemy "*" -- "1" Enemy
+DataPlayer "*" -- "1" Player
+
+class DataPlayer {
+    - HashMap<Integer, Player> DataPlayer
+    + DataPlayer()
+    + getPlayer()
+}
+
+class BasicAttribute {
+    # String name
+    # String desc
+}
+
+class Characters extends BasicAttribute {
+    # enum type
+    # type charType
+    # int gold
+    # boolean isDead
+
+    + boolean isDead()
+}
+
+class Player extends Characters {
+
+}
+@enduml

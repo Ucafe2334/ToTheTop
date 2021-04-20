@@ -1,8 +1,7 @@
 package Controller;
 
-import Controller.Commands.BattleCommands;
+import Controller.Commands.BattleCommand;
 import Model.Characters;
-import Model.Player;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -13,9 +12,8 @@ public class Battles {
 
     public static void Battle (Characters player, Characters enemy){
         Scanner Do = new Scanner(System.in);
-        BattleCommands bc = new BattleCommands();
 
-        bc.showstatus(player);
+        BattleCommand.showstatus(player);
         System.out.println("What Will You Do?");
         System.out.println("1. Attack 2. Guard 3. Skip Turn");
         System.out.println("Your Action : ");
@@ -24,13 +22,13 @@ public class Battles {
             int ch = Do.nextInt();
             switch (ch){
                 case 1:
-                    bc.attack(player, enemy);
+                    BattleCommand.attack(player, enemy);
                     break;
                 case 2:
-                    bc.guard(player);
+                    BattleCommand.guard(player);
                     break;
                 case 3:
-                    bc.skip(player);
+                    BattleCommand.skip(player);
                     break;
                 default:
                     break;
@@ -45,18 +43,17 @@ public class Battles {
     public static void battleAi (Characters ai, Characters enemy){
         try {
             Random random = new Random();
-            BattleCommands bc = new BattleCommands();
 
             int ch = random.nextInt(3-1)+1;
             switch (ch){
                 case 1:
-                    bc.attack(ai, enemy);
+                    BattleCommand.attack(ai, enemy);
                     break;
                 case 2:
-                    bc.guard(ai);
+                    BattleCommand.guard(ai);
                     break;
                 case 3:
-                    bc.skip(ai);
+                    BattleCommand.skip(ai);
                     break;
                 default:
                     break;

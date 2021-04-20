@@ -1,10 +1,13 @@
 package Model;
 
+import Model.ItemType.Equipable;
+
 public class Player extends Characters {
     //equiped
-    private Weapon weapon; //weapon yang di equip
-    //armor yang di equip
-    //accesories yang di equip
+    private Equipable weapons;//weapon yang di equip
+    private Equipable secondaryWeapons;//weapon ke 2 yang di equip
+    private Equipable armor;//armor yang di equip
+    private Equipable accessories;//accesories yang di equip
 
     //inventory
     private Item[] inventory;
@@ -26,13 +29,41 @@ public class Player extends Characters {
 
     }
 
-    //getter
-    public Weapon getWeapon() {
-        return weapon;
+    public Equipable getSecondaryWeapons() {
+        return secondaryWeapons;
+    }
+    public Equipable getWeapons() {
+        return weapons;
+    }
+    public Equipable getArmor() {
+        return armor;
+    }
+    public Equipable getAccessories() {
+        return accessories;
+    }
+    public Item[] getInventory() {
+        return inventory;
+    }
+    public int getCap() {
+        return Cap;
     }
 
-    //setter
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    public void setSecondaryWeapons(Equipable secondaryWeapons) {
+        this.secondaryWeapons = secondaryWeapons;
+    }
+    public void setWeapons(Equipable weapons) {
+        this.weapons = weapons;
+    }
+    public void setArmor(Equipable armor) {
+        this.armor = armor;
+    }
+    public void setAccessories(Equipable accessories) {
+        this.accessories = accessories;
+    }
+    public void setInventory(Item[] inventory) {
+        this.inventory = inventory;
+    }
+    public void setCap(int cap) {
+        Cap = cap;
     }
 }

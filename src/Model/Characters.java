@@ -2,12 +2,12 @@ package Model;
 
 public class Characters extends BasicAttribute {
     protected enum type {PLAYER, ENEMY, NPC}
-    type charType;
+    protected type charType;
     protected int gold;
     protected boolean isDead;
 
     public boolean isDead() {
-        isDead = this.HP < 0;
+        isDead = this.HP < 1;
         return isDead;
     }
     public int getGold() {
