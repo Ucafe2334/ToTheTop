@@ -1,6 +1,5 @@
-package GameSystem.Commands;
-import GameSystem.Player;
-import BaseClass.Race;
+package Controller.Commands;
+import Model.Player;
 
 
 public class BattleCommands{

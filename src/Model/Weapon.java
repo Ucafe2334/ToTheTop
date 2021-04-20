@@ -1,4 +1,4 @@
-package BaseClass;
+package Model;
 
 public class Weapon {
     private String Name;

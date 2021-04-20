@@ -1,4 +1,4 @@
-package GameSystem;
+package Controller;
 
 public class PlayerSystem {
 }

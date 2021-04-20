@@ -1,6 +1,7 @@
-package GameSystem;
+package Controller;
 
-import GameSystem.Commands.BattleCommands;
+import Controller.Commands.BattleCommands;
+import Model.Player;
 
 import java.util.Random;
 import java.util.Scanner;
