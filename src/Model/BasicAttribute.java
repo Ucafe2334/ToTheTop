@@ -50,6 +50,9 @@ public class BasicAttribute {
         return MaxMP;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setHP(int HP) {
         this.HP = HP;
     }

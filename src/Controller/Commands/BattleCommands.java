@@ -1,20 +1,20 @@
 package Controller.Commands;
-import Model.Player;
+import Model.Characters;
 
 
 public class BattleCommands{
-    public void attack (Player player, Player enemy){
+    public void attack (Characters player, Characters enemy){
 
-        String PlayerName = player.getPlayerName();
+        String PlayerName = player.getName();
         int PlayerAttack = player.getPA();
         int PlayerCurrentHP = player.getHP();
-        int PlayerMaxHP = player.getRace().getMaxHP();
+        int PlayerMaxHP = player.getMaxHP();
         player.setGuard(false);
 
-        String EnemyName = enemy.getPlayerName();
+        String EnemyName = enemy.getName();
         int EnemyDef = enemy.getDeff();
         int EnemyCurrentHP = enemy.getHP();
-        int EnemyTotalHP = enemy.getRace().getMaxHP();
+        int EnemyTotalHP = enemy.getMaxHP();
 
         int Result;
 
@@ -40,18 +40,16 @@ public class BattleCommands{
         System.out.println("---------------Next Turn--------------");
     }
 
-    public void guard (Player player){
-        Race player1 = player.getRace();
-
+    public void guard (Characters player){
         player.setGuard(true);
-        System.out.println(player1.getName() + " Ready To Guard Next Attack");
+        System.out.println(player.getName() + " Ready To Guard Next Attack");
         System.out.println("---------------Next Turn--------------");
     }
 
-    public void skip(Player player){
-        String PlayerName = player.getPlayerName();
+    public void skip(Characters player){
+        String PlayerName = player.getName();
         int PlayerCurrentHP = player.getHP();
-        int PlayerMaxHP = player.getRace().getMaxHP();
+        int PlayerMaxHP = player.getMaxHP();
 
         player.setGuard(false);
         int Result = (int) (PlayerMaxHP*0.1);
@@ -66,10 +64,9 @@ public class BattleCommands{
         System.out.println("---------------Next Turn--------------");
     }
 
-    public void showstatus(Player player){
-        System.out.println(player.getPlayerName() + " Current Turn");
-        System.out.println("HP         : " + player.getHP() + "/" + player.getRace().getMaxHP());
-        System.out.println("HP         : " + player.getHP() + "/" + player.getRace().getMaxHP());
-        System.out.println("MP         : " + player.getMP() + "/" + player.getRace().getMaxMP());
+    public void showstatus(Characters player){
+        System.out.println(player.getName() + " Current Turn");
+        System.out.println("HP         : " + player.getHP() + "/" + player.getMaxHP());
+        System.out.println("MP         : " + player.getMP() + "/" + player.getMaxMP());
     }
 }

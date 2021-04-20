@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.Commands.BattleCommands;
+import Model.Characters;
 import Model.Player;
 
 import java.util.Random;
@@ -10,7 +11,7 @@ public class Battles {
     private static int turn = 1;
     private static boolean EndGame = false;
 
-    public static void Battle (Player player, Player enemy){
+    public static void Battle (Characters player, Characters enemy){
         Scanner Do = new Scanner(System.in);
         BattleCommands bc = new BattleCommands();
 
@@ -41,7 +42,7 @@ public class Battles {
         }
     }
 
-    public static void battleAi (Player ai, Player enemy){
+    public static void battleAi (Characters ai, Characters enemy){
         try {
             Random random = new Random();
             BattleCommands bc = new BattleCommands();
@@ -66,21 +67,21 @@ public class Battles {
         }
     }
 
-    public static void NewGame (Player Player, Player Ai){
-        Player CurrentTurn = Player;
+    public static void NewGame (Characters player, Characters Ai){
+        Characters CurrentTurn = player;
         while (!EndGame){
             if (turn == 1){
-                CurrentTurn = Player;
-                Battle(Player, Ai);
+                CurrentTurn = player;
+                Battle(player, Ai);
                 turn = 2;
             }else {
                 CurrentTurn = Ai;
-                battleAi(Ai, Player);
+                battleAi(Ai, player);
                 turn = 1;
             }
         }
 
-        System.out.println(CurrentTurn.getPlayerName() + " is The Winner!!!");
+        System.out.println(CurrentTurn.getName() + " is The Winner!!!");
     }
 
 }

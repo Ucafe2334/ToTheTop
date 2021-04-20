@@ -17,6 +17,8 @@ public class Player extends Characters {
 
         this.HP = hp;
         this.MP = mp;
+        this.MaxHP = hp;
+        this.MaxMP = mp;
         this.PA = pa;
         this.MA = ma;
         this.deff = deff;
