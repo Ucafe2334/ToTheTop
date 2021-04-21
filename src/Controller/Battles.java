@@ -6,7 +6,7 @@ import Model.Characters;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Battles {
+public class Battles implements BattleCommand{
     private static int turn = 1;
     private static boolean EndGame = false;
 

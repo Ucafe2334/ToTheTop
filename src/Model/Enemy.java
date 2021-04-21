@@ -1,7 +1,7 @@
 package Model;
 
 public class Enemy extends Characters {
-    Item[] dropitem;
+    private Item[] dropitem;
 
     public Enemy(String playerName, String desc, int hp, int mp, int pa, int ma, int deff, int spd) {
         this.name = playerName;
@@ -16,5 +16,13 @@ public class Enemy extends Characters {
         this.deff = deff;
         this.speed = spd;
 
+    }
+
+    public Item[] getDropitem() {
+        return dropitem;
+    }
+
+    public void setDropitem(Item[] dropitem) {
+        this.dropitem = dropitem;
     }
 }
