@@ -20,8 +20,8 @@ public class DataWeapon {
             Equipable idWeapon = entry.getValue();
 
             System.out.println(id + "> " + idWeapon.getName());
-            System.out.println("HP : " + idWeapon.getMaxHP());
-            System.out.println("MP : " + idWeapon.getMaxMP());
+            System.out.println("HP : " + idWeapon.getHP());
+            System.out.println("MP : " + idWeapon.getMP());
             System.out.println("PA/MA/DEF/SPD");
             System.out.println(idWeapon.getPA() + "/" + idWeapon.getMA() + "/" + idWeapon.getDeff() + "/" + idWeapon.getSpeed());
             System.out.println(" ");

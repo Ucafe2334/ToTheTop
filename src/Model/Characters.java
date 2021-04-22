@@ -1,6 +1,10 @@
 package Model;
 
 public class Characters extends BasicAttribute {
+    protected int MaxHP;
+    protected int MaxMP;
+    protected boolean Guard = false; //status on guard position or not
+
     protected enum type {PLAYER, ENEMY, NPC}
     protected type charType;
     protected int gold;
@@ -13,9 +17,27 @@ public class Characters extends BasicAttribute {
     public int getGold() {
         return gold;
     }
+    public int getMaxHP() {
+        return MaxHP;
+    }
+    public int getMaxMP() {
+        return MaxMP;
+    }
+    public boolean isGuard() {
+        return Guard;
+    }
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+    public void setMaxHP(int maxHP) {
+        MaxHP = maxHP;
+    }
+    public void setMaxMP(int maxMP) {
+        MaxMP = maxMP;
+    }
+    public void setGuard(boolean guard) {
+        Guard = guard;
     }
 
 }

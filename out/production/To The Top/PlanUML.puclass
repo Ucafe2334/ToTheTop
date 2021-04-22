@@ -1,12 +1,17 @@
 @startuml
-interface BattleCommands{
-    + attack ()
-    + guard ()
-    + skip()
-    + showstatus()
+interface BattleCommand{
+    attack ()
+    guard ()
+    skip()
+    showstatus()
 }
 
-class Battles {
+interface PlayerCommands{
+    equip()
+    unequip()
+}
+
+class Battles implements BattleCommand {
     - int turn
     - boolean EndGame
 
@@ -20,8 +25,6 @@ class DataEnemy{
     + DataEnemy()
     + getEnemy()
 }
-DataEnemy "*" -- "1" Enemy
-DataPlayer "*" -- "1" Player
 
 class DataPlayer {
     - HashMap<Integer, Player> DataPlayer
@@ -29,21 +32,104 @@ class DataPlayer {
     + getPlayer()
 }
 
+class DataWeapon{
+    - HashMap<Integer, Equipable> DataWeapon
+    + DataWeapon()
+    + getWeapon()
+}
+
+class DataArmor{
+    - HashMap<Integer, Equipable> DataArmor
+    + DataArmor()
+    + getArmor()
+}
+
+class DataAccessories{
+    - HashMap<Integer, Equipable> DataAccessories
+    + DataAccessories()
+    + getAccessories()
+}
+
+class DataSecondaryWeapon{
+    - HashMap<Integer, Equipable> DataSecondaryWeapon
+    + DataSecondaryWeapon()
+    + getSecondaryWeapon()
+}
+
 class BasicAttribute {
     # String name
     # String desc
+    # int HP
+    # int MP
+    # int PA
+    # int MA
+    # int deff
+    # int speed
+
+
 }
 
 class Characters extends BasicAttribute {
-    # enum type
+    # enum type {PLAYER, ENEMY, NPC}
+    # int MaxHP
+    # int MaxMP
     # type charType
     # int gold
+    # boolean Guard
     # boolean isDead
 
     + boolean isDead()
 }
 
 class Player extends Characters {
-
+    - Equipable weapons
+    - Equipable secondaryWeapons
+    - Equipable armor
+    - Equipable accessories
+    - Item[] inventory
+    - int Cap
 }
+
+class Enemy extends Characters {
+    - Item[] dropitem
+}
+
+class Item extends BasicAttribute{
+    # enum type {USABLE, EQUIPABLE, CRAFTABLE}
+    # String types
+    # type itemType
+    + usingItem()
+}
+
+class Equipable extends Item{
+    + enum typeE {WEAPONS,ARMOUR,ACCESSORIES,SECONDARY_WEAPONS
+    + typeE equipType
+}
+
+class Usable extends Item {
+    + useItem()
+}
+
+class Craftable extends Item {
+    # Item product
+    # Item[] CraftMaterial
+    # int cost
+    + checkMaterial()
+    + craftItem()
+    + upgradeItem()
+    + dismatingItem()
+}
+
+class Engine implements PlayerCommands{
+    + main(String[] args)
+}
+
+Equipable "*" -- "1" Player
+Characters "1" -- "*" Item
+DataEnemy "*" -- "1" Enemy
+DataPlayer "*" -- "1" Player
+DataWeapon "*" -- "1" Equipable
+DataArmor "*" -- "1" Equipable
+DataAccessories "*" -- "1" Equipable
+DataSecondaryWeapon "*" -- "1" Equipable
 @enduml

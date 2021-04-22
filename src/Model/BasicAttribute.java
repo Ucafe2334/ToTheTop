@@ -6,16 +6,14 @@ public class BasicAttribute {
     protected String desc;
 
     //stat characters
-    protected int MaxHP;
-    protected int MaxMP;
-    protected int HP; //total health poin player
-    protected int MP; //total mana poin player
-    protected int PA; //total physical attack player
-    protected int MA; //total magic attack player
-    protected int deff; //total defence player
-    protected int speed; //total speed player
-    protected boolean Guard = false; //status on guard position or not
+    protected int HP; //total health poin
+    protected int MP; //total mana poin
+    protected int PA; //total physical attack
+    protected int MA; //total magic attack
+    protected int deff; //total defence
+    protected int speed; //total speed
 
+    //getter
     public String getName() {
         return name;
     }
@@ -40,16 +38,8 @@ public class BasicAttribute {
     public int getSpeed() {
         return speed;
     }
-    public boolean isGuard() {
-        return Guard;
-    }
-    public int getMaxHP() {
-        return MaxHP;
-    }
-    public int getMaxMP() {
-        return MaxMP;
-    }
 
+    //setter
     public void setName(String name) {
         this.name = name;
     }
@@ -65,12 +55,6 @@ public class BasicAttribute {
     public void setMA(int MA) {
         this.MA = MA;
     }
-    public void setMaxHP(int maxHP) {
-        MaxHP = maxHP;
-    }
-    public void setMaxMP(int maxMP) {
-        MaxMP = maxMP;
-    }
     public void setDesc(String desc) {
         this.desc = desc;
     }
@@ -79,8 +63,5 @@ public class BasicAttribute {
     }
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-    public void setGuard(boolean guard) {
-        Guard = guard;
     }
 }

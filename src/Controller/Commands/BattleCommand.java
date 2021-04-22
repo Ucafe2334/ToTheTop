@@ -1,6 +1,10 @@
 package Controller.Commands;
 
 import Model.Characters;
+import Model.Item;
+import Model.Player;
+
+import java.util.Scanner;
 
 public interface BattleCommand {
     static void attack (Characters player, Characters enemy){
@@ -62,6 +66,17 @@ public interface BattleCommand {
             System.out.println(PlayerName + " Just Take Some Rest");
         }
         System.out.println("---------------Next Turn--------------");
+    }
+
+    static void useItem(Player player){
+        System.out.println("pilih Item yang ingin digunakan :");
+        player.getInventory(Item.type.USABLE);
+
+        Scanner scItem = new Scanner(System.in);
+        int selected = scItem.nextInt();
+        Item item = player.getInventory(selected);
+        PlayerCommands.itemEffect(player,item);
+        player.removeItem(selected);
     }
 
     static void showstatus(Characters player){

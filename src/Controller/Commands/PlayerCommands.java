@@ -1,5 +1,6 @@
 package Controller.Commands;
 
+import Model.Item;
 import Model.ItemType.Equipable;
 import Model.Player;
 
@@ -19,9 +20,9 @@ public interface PlayerCommands {
             return;
         }
 
-        target.setMaxHP(target.getMaxHP()+item.getMaxHP());
+        target.setMaxHP(target.getMaxHP()+item.getHP());
         target.setHP(target.getHP()+ item.getHP());
-        target.setMaxMP(target.getMaxMP()+item.getMaxMP());
+        target.setMaxMP(target.getMaxMP()+item.getMP());
         target.setMP(target.getMP()+item.getMP());
 
         target.setPA(target.getPA()+item.getPA());
@@ -45,14 +46,33 @@ public interface PlayerCommands {
             return;
         }
 
-        target.setMaxHP(target.getMaxHP()-item.getMaxHP());
+        target.setMaxHP(target.getMaxHP()-item.getHP());
         target.setHP(target.getHP()-item.getHP());
-        target.setMaxMP(target.getMaxMP()-item.getMaxMP());
+        target.setMaxMP(target.getMaxMP()-item.getMP());
         target.setMP(target.getMP()-item.getMP());
 
         target.setPA(target.getPA()-item.getPA());
         target.setMA(target.getMA()-item.getMA());
         target.setSpeed(target.getSpeed()-item.getSpeed());
         target.setDeff(target.getDeff()-item.getDeff());
+    }
+
+    static void itemEffect(Player player, Item usable){
+        System.out.println("Using Item "+usable.getName());
+
+        if (usable.getHP() > 0){
+            player.setHP(player.getHP()+usable.getHP());
+            if (player.getMaxHP() < player.getHP()){
+                player.setHP(player.getMaxHP());
+            }
+            System.out.println(player.getName()+" recovery "+usable.getHP()+"HP");
+        }
+        if (usable.getMP() > 0){
+            player.setMP(player.getMP()+ usable.getMP());
+            if (player.getMaxMP() < player.getMP()){
+                player.setMP(player.getMaxMP());
+            }
+            System.out.println(player.getName()+ " recovery "+usable.getMP()+"MP");
+        }
     }
 }

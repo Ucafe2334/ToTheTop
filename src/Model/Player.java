@@ -2,6 +2,8 @@ package Model;
 
 import Model.ItemType.Equipable;
 
+import java.util.ArrayList;
+
 public class Player extends Characters {
     //equiped
     private Equipable weapons;//weapon yang di equip
@@ -10,8 +12,7 @@ public class Player extends Characters {
     private Equipable accessories;//accesories yang di equip
 
     //inventory
-    private Item[] inventory;
-    private int Cap;
+    private final ArrayList<Item> inventory;
 
     //constructor
     public Player(String playerName, String desc, int hp, int mp, int pa, int ma, int deff, int spd) {
@@ -26,7 +27,7 @@ public class Player extends Characters {
         this.MA = ma;
         this.deff = deff;
         this.speed = spd;
-
+        this.inventory = new ArrayList<>();
     }
 
     public Equipable getSecondaryWeapons() {
@@ -41,11 +42,23 @@ public class Player extends Characters {
     public Equipable getAccessories() {
         return accessories;
     }
-    public Item[] getInventory() {
-        return inventory;
+
+    public void getInventory() {
+        for (int i = 0; i < inventory.size(); i++){
+            Item item = inventory.get(i);
+            System.out.println(i+") "+item.getName());
+        }
     }
-    public int getCap() {
-        return Cap;
+    public void getInventory(Item.type type) {
+        for (int i = 0; i < inventory.size(); i++){
+            Item item = inventory.get(i);
+            if (item.getItemType() == type){
+                System.out.println(i+") "+item.getName());
+            }
+        }
+    }
+    public Item getInventory(int id){
+        return inventory.get(id);
     }
 
     public void setSecondaryWeapons(Equipable secondaryWeapons) {
@@ -60,10 +73,11 @@ public class Player extends Characters {
     public void setAccessories(Equipable accessories) {
         this.accessories = accessories;
     }
-    public void setInventory(Item[] inventory) {
-        this.inventory = inventory;
+
+    public void setInventory(Item item) {
+        this.inventory.add(item);
     }
-    public void setCap(int cap) {
-        Cap = cap;
+    public void removeItem(int id){
+        this.inventory.remove(id);
     }
 }

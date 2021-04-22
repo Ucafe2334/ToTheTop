@@ -1,11 +1,10 @@
 package Model;
 
 public class Item extends BasicAttribute{
-    protected enum type {USABLE, EQUIPABLE, CRAFTABLE};
-    protected String types;
+    public enum type {USABLE, EQUIPABLE, CRAFTABLE};
     protected type itemType;
 
-    public void usingItem(){
-
+    public type getItemType() {
+        return itemType;
     }
 }
