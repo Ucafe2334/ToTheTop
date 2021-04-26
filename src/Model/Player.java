@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Commands.PlayerCommands;
+import Model.Enum.TypeItem;
 import Model.ItemType.Equipable;
 
 import java.util.ArrayList;
@@ -18,6 +20,11 @@ public class Player extends Characters {
     public Player(String playerName, String desc, int hp, int mp, int pa, int ma, int deff, int spd) {
         this.name = playerName;
         this.desc = desc;
+
+        this.weapons = new Equipable();
+        this.secondaryWeapons = new Equipable();
+        this.armor = new Equipable();
+        this.accessories = new Equipable();
 
         this.HP = hp;
         this.MP = mp;
@@ -49,10 +56,10 @@ public class Player extends Characters {
             System.out.println(i+") "+item.getName());
         }
     }
-    public void getInventory(Item.type type) {
+    public void getInventory(TypeItem type) {
         for (int i = 0; i < inventory.size(); i++){
             Item item = inventory.get(i);
-            if (item.getItemType() == type){
+            if (item.getTypeI() == type){
                 System.out.println(i+") "+item.getName());
             }
         }

@@ -1,6 +1,7 @@
 package Controller.Commands;
 
 import Model.Characters;
+import Model.Enum.TypeItem;
 import Model.Item;
 import Model.Player;
 
@@ -70,12 +71,12 @@ public interface BattleCommand {
 
     static void useItem(Player player){
         System.out.println("pilih Item yang ingin digunakan :");
-        player.getInventory(Item.type.USABLE);
+        player.getInventory(TypeItem.UsableItem);
 
         Scanner scItem = new Scanner(System.in);
         int selected = scItem.nextInt();
         Item item = player.getInventory(selected);
-        PlayerCommands.itemEffect(player,item);
+        PlayerCommands.usingItem(player,item);
         player.removeItem(selected);
     }
 

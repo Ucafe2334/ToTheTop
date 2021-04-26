@@ -1,15 +1,13 @@
 package Model.ItemType;
 
+import Model.Enum.TypeItem;
+import Model.Enum.TypeEquip;
 import Model.Item;
 
 public class Equipable extends Item{
-    public enum typeE {WEAPONS,ARMOUR,ACCESSORIES,SECONDARY_WEAPONS}
-
-    public typeE equipType;
-
-    public Equipable(String name, String desc, int hp, int mp, int pa, int ma, int deff, int spd, typeE typee) {
-        this.name = name;
-        this.desc = desc;
+    public TypeEquip equipType;
+    public Equipable(String name, String desc, int hp, int mp, int pa, int ma, int deff, int spd, TypeEquip typeE,int cost) {
+        super(name,desc,TypeItem.EquipableItem,cost);
 
         this.HP = hp;
         this.MP = mp;
@@ -18,7 +16,9 @@ public class Equipable extends Item{
         this.deff = deff;
         this.speed = spd;
 
-        this.itemType = type.EQUIPABLE;
-        this.equipType = typee;
+        this.equipType = typeE;
+    }
+    public Equipable(){
+        super("empty","",TypeItem.EquipableItem,0);
     }
 }
