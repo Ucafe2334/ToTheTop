@@ -1,12 +1,12 @@
 package Data;
 
-import Model.Enum.TypeItem;
-import Model.Item;
+import Model.Abstract.Item;
+import Model.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataItem {
+public abstract class DataItem {
     protected final HashMap<Integer, Item> DataItem = new HashMap<>();
 
     public void getItem(){
@@ -15,7 +15,17 @@ public class DataItem {
             Item idItem = entry.getValue();
 
             System.out.println(id + "> " + idItem.getName());
-            System.out.println(idItem.getDesc());
+            System.out.println("desc : "+idItem.getDesc());
+        }
+    }
+
+    public void getItem(Player target){
+        for (Map.Entry<Integer, Item> entry: DataItem.entrySet()){
+            Integer id = entry.getKey();
+            Item idItem = entry.getValue();
+
+            System.out.println(id + "> " + idItem.getName()+"\tx"+target.getInventoryQuantity(idItem));
+            System.out.println("desc : "+idItem.getDesc());
         }
     }
 

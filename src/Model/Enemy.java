@@ -1,5 +1,8 @@
 package Model;
 
+import Model.Abstract.Characters;
+import Model.Abstract.Item;
+
 public class Enemy extends Characters {
     private Item[] dropitem;
 

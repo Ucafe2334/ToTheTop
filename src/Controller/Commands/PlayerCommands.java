@@ -1,15 +1,11 @@
 package Controller.Commands;
 
-import Model.Characters;
 import Model.Enum.TypeEquip;
-import Model.Enum.TypeItem;
-import Model.Item;
+import Model.Abstract.Item;
 import Model.ItemType.Equipable;
 import Model.Player;
 
-import java.util.Scanner;
-
-public interface PlayerCommands {
+public interface PlayerCommands extends BasicCommand{
 
     static void equip(Equipable item, Player target){
         TypeEquip type = item.equipType;
@@ -37,7 +33,7 @@ public interface PlayerCommands {
         target.setDeff(target.getDeff()+item.getDeff());
     }
 
-    static void unequip(Equipable item, Player target){
+    static void unequipped(Equipable item, Player target){
         TypeEquip type = item.equipType;
 
         if (type == TypeEquip.WEAPONS){
@@ -85,35 +81,36 @@ public interface PlayerCommands {
     static boolean alreadyEquip(Equipable item,Player target){
         TypeEquip type = item.equipType;
 
-        if (type == TypeEquip.WEAPONS && !target.getWeapons().getName().equalsIgnoreCase("empty")){
+        if (type == TypeEquip.WEAPONS && target.getWeapons().getId() != 0){
             return true;
-        } else if (type == TypeEquip.ARMOUR && target.getArmor().getName().equalsIgnoreCase("empty")){
+        } else if (type == TypeEquip.ARMOUR && target.getArmor().getId() != 0){
             return true;
-        }else if (type == TypeEquip.ACCESSORIES && target.getAccessories().getName().equalsIgnoreCase("empty")){
+        }else if (type == TypeEquip.ACCESSORIES && target.getAccessories().getId() != 0){
             return true;
-        }else if (type == TypeEquip.SECONDARY_WEAPONS && target.getSecondaryWeapons().getName().equalsIgnoreCase("empty")){
-            return true;
-        } else {
-            return false;
-        }
+        }else return type == TypeEquip.SECONDARY_WEAPONS && target.getSecondaryWeapons().getId() != 0;
     }
 
     static void showStatus(Player target){
-        System.out.println("========================================");
+        BasicCommand.tittle("Player Status");
+
         System.out.println("Name\t: " + target.getName());
         System.out.println("HP\t: " + target.getHP() + "/" + target.getMaxHP());
         System.out.println("MP\t: " + target.getMP() + "/" + target.getMaxMP());
         System.out.println("PA/MA/DEF/SPD");
         System.out.println(target.getPA() + "/" + target.getMA() + "/" + target.getDeff() + "/" + target.getSpeed());
 
-        System.out.println("========================================");
+        BasicCommand.pauseE();
     }
 
     static void showEquipment(Player target){
         showStatus(target);
+        BasicCommand.tittle("Equipment");
+
         System.out.println("Main Weapons : "+target.getWeapons().getName());
         System.out.println("Secondary Weapon : "+target.getSecondaryWeapons().getName());
         System.out.println("Armor : "+target.getArmor().getName());
         System.out.println("Accesories : "+target.getAccessories().getName());
+
+        BasicCommand.pause();
     }
 }

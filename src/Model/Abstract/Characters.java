@@ -1,12 +1,10 @@
-package Model;
+package Model.Abstract;
 
-public class Characters extends BasicAttribute {
+public abstract class Characters extends BasicAttribute{
     protected int MaxHP;
     protected int MaxMP;
     protected boolean Guard = false; //status on guard position or not
 
-    protected enum type {PLAYER, ENEMY, NPC}
-    protected type charType;
     protected int gold;
     protected boolean isDead;
 

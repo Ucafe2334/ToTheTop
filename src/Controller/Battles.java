@@ -1,27 +1,25 @@
 package Controller;
 
+import Controller.Commands.BasicCommand;
 import Controller.Commands.BattleCommand;
-import Model.Characters;
+import Model.Abstract.Characters;
 import Model.Enemy;
 import Model.Player;
 
 import java.util.Random;
-import java.util.Scanner;
 
-public class Battles implements BattleCommand{
+public class Battles implements BasicCommand {
     private static int turn = 1;
     private static boolean EndGame = false;
 
     public static void Battle (Player player, Enemy enemy){
-        Scanner Do = new Scanner(System.in);
-
         BattleCommand.showstatus(player);
         System.out.println("What Will You Do?");
         System.out.println("1. Attack 2. Guard 3. UseItem 4.Skip Turn");
         System.out.println("Your Action : ");
 
         try {
-            int ch = Do.nextInt();
+            int ch = BasicCommand.inputint();
             switch (ch){
                 case 1-> BattleCommand.attack(player, enemy);
                 case 2-> BattleCommand.guard(player);

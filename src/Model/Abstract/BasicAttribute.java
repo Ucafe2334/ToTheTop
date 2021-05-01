@@ -1,6 +1,6 @@
-package Model;
+package Model.Abstract;
 
-public class BasicAttribute {
+public abstract class BasicAttribute {
     //name and descriptions
     protected String name;
     protected String desc;
@@ -54,9 +54,6 @@ public class BasicAttribute {
     }
     public void setMA(int MA) {
         this.MA = MA;
-    }
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
     public void setDeff(int deff) {
         this.deff = deff;

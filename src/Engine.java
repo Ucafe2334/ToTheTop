@@ -1,4 +1,5 @@
 import Controller.Battles;
+import Controller.Commands.BasicCommand;
 import Controller.Commands.PlayerCommands;
 import Controller.Commands.ShopCommand;
 import Data.Characters.DataEnemy;
@@ -10,24 +11,18 @@ import Model.Player;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Engine implements PlayerCommands{
+public class Engine implements BasicCommand,PlayerCommands{
     public static void main(String[] args) {
         try {
-            Scanner Ch1 = new Scanner(System.in);
-            Scanner Ch2 = new Scanner(System.in);
             Random random = new Random();
 
             DataPlayer dataPlayer = new DataPlayer();
             DataEnemy dataEnemy = new DataEnemy();
 
-            DataUsable dataUsable = new DataUsable();
-
             dataPlayer.getChar();
-            System.out.println("Select Your Race : ");
-            int raceId = Ch1.nextInt();
+            int raceId = BasicCommand.inputint("Select Race");
 
-            System.out.println("enter your name : ");
-            String playerName = Ch2.nextLine();
+            String playerName = BasicCommand.inputString("enter your name");
 
             Player player = dataPlayer.getChar(raceId);
             player.setName(playerName);
@@ -39,7 +34,7 @@ public class Engine implements PlayerCommands{
 
             Battles.NewGame(player, ai);
         }catch (Exception e){
-            System.out.println("Engine ERROR!!");
+            System.out.println(e);
         }
     }
 }

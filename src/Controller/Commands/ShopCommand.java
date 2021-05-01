@@ -2,38 +2,37 @@ package Controller.Commands;
 
 import Data.Item.DataEquipable;
 import Data.Item.DataUsable;
+import Model.Abstract.Item;
 import Model.Enum.TypeItem;
-import Model.Item;
 import Model.ItemType.Equipable;
 import Model.ItemType.Usable;
 import Model.Player;
 
-import java.util.Scanner;
+public interface ShopCommand extends BasicCommand{
+    DataEquipable dataEquipable = new DataEquipable();
+    DataUsable dataUsable = new DataUsable();
 
-public interface ShopCommand {
     static void shopMenu(Player target){
         boolean stop = false;
         while (!stop){
-            System.out.println("========================================\n");
+            BasicCommand.tittle("Shop Menu");
             System.out.println("your gold :"+target.getGold());
-            int pil;
-            Scanner scPil = new Scanner(System.in);
-            System.out.println("Shop\n" +
-                    "1. Buy\n" +
-                    "2. Sell\n" +
-                    "3. Enchant (under construction)\n"+
-                    "4. Player Item\n"+
-                    "5. Player Equipment\n"+
-                    "0. Exit\n" +
-                    "Pilihan :");
-            pil = scPil.nextInt();
+
+            array.add("Buy");
+            array.add("Sell");
+            array.add("Enchant (under construction)");
+            array.add("Player Item");
+            array.add("Player Equipment");
+            BasicCommand.printMenu();
+
+            int pil = BasicCommand.inputint();
             switch (pil){
                 case 1 -> buyMenu(target);
                 case 2 -> sellMenu(target);
                 case 4 -> {
-                    System.out.println("========================================\n");
+                    BasicCommand.tittle("Your Inventory");
                     target.getInventory();
-                    System.out.println("========================================\n");
+                    BasicCommand.pause();
                 }
                 case 5 -> PlayerCommands.showEquipment(target);
                 default -> stop = true;
@@ -45,16 +44,14 @@ public interface ShopCommand {
     static void buyMenu(Player target){
         boolean stop = false;
         while (!stop){
-            System.out.println("========================================\n");
+            BasicCommand.tittle("Buying Menu");
             System.out.println("your gold :"+target.getGold());
-            int pil;
-            Scanner scPil = new Scanner(System.in);
-            System.out.println("Shop\n" +
-                    "1. Equipment\n" +
-                    "2. Item\n" +
-                    "0. Back\n" +
-                    "Pilihan :");
-            pil = scPil.nextInt();
+
+            array.add("Equipment");
+            array.add("Item");
+            BasicCommand.printMenu();
+
+            int pil = BasicCommand.inputint();
             switch (pil){
                 case 1 -> equipmentMenu(target);
                 case 2 -> itemMenu(target);
@@ -67,29 +64,28 @@ public interface ShopCommand {
     static void equipmentMenu(Player target){
         boolean stop = false;
         while (!stop){
-            System.out.println("========================================\n");
+            BasicCommand.tittle("Equipment Shop");
             System.out.println("your gold :"+target.getGold());
 
-            DataEquipable dataEquipable = new DataEquipable();
-            Scanner scPil = new Scanner(System.in);
-
-            dataEquipable.getItem();
+            dataEquipable.getItem(target);
             System.out.println("0> back");
 
-            System.out.println("Select Your Weapons :");
-            int equipId = scPil.nextInt();
+            int equipId = BasicCommand.inputint("Choose Equipment");
             if (equipId == 0){
                 stop = true;
             } else {
                 Equipable item = dataEquipable.getItem(equipId);
                 target.setGold(target.getGold()-item.getCost());
-                if (PlayerCommands.alreadyEquip(item,target)){
-                    target.setInventory(item);
+
+                if (!PlayerCommands.alreadyEquip(item, target)) {
+                    PlayerCommands.equip(item, target);
+                }
+                if (target.alreadyHave(item)){
+                    item.addQuantity(1);
                 } else {
-                    PlayerCommands.equip(item,target);
+                    item.addQuantity(1);
                     target.setInventory(item);
                 }
-
             }
         }
     }
@@ -97,23 +93,24 @@ public interface ShopCommand {
     static void itemMenu(Player target){
         boolean stop = false;
         while (!stop){
-            System.out.println("========================================\n");
+            BasicCommand.tittle("Item Shop");
             System.out.println("your gold :"+target.getGold());
 
-            DataUsable dataUsable = new DataUsable();
-            Scanner scPil = new Scanner(System.in);
-
-            dataUsable.getItem();
+            dataUsable.getItem(target);
             System.out.println("0> back");
 
-            System.out.println("Select Your Weapons :");
-            int ItemId = scPil.nextInt();
+            int ItemId = BasicCommand.inputint("Choose Item");
             if (ItemId == 0){
                 stop = true;
             } else {
                 Usable item = dataUsable.getItem(ItemId);
                 target.setGold(target.getGold()-item.getCost());
-                target.setInventory(item);
+                if (target.alreadyHave(item)){
+                    item.addQuantity(1);
+                } else {
+                    item.addQuantity(1);
+                    target.setInventory(item);
+                }
             }
         }
     }
@@ -122,18 +119,38 @@ public interface ShopCommand {
 
         boolean stop = false;
         while (!stop){
-            System.out.println("========================================\n");
+            BasicCommand.tittle("Sell Menu");
             System.out.println("your gold :"+target.getGold());
+
             target.getInventory();
-            System.out.println("-1) back");
-            Scanner scItem = new Scanner(System.in);
-            int selected = scItem.nextInt();
+            System.out.println("0) back");
+            int selected = BasicCommand.inputint("Choose Item");
+            selected -=1;
             if (selected !=-1){
-                Item item = target.getInventory(selected);
-                System.out.println(item.getTypeI());
-                PlayerCommands.unequip((Equipable) item,target);
-                target.removeItem(selected);
-                target.setGold(target.getGold()+item.getCost());
+                boolean a = false;
+                while (!a){
+                    Item item = target.getInventory(selected);
+                    String builder = "How Much (max :"+item.getQuantity()+")";
+                    int quantity = BasicCommand.inputint(builder);
+
+                    if (item.getQuantity() == quantity){
+                        if (item.getTypeI() == TypeItem.EquipableItem){
+                            PlayerCommands.unequipped((Equipable) item,target);
+                        }
+                        target.removeItem(selected);
+                        target.setGold(target.getGold()+(item.getSell()*quantity));
+                        a = true;
+                    } else if(item.getQuantity() < quantity){
+                        System.out.println("you don't even have that much");
+                    } else if(quantity > 0) {
+                        item.removeSome(quantity);
+                        target.replaceInventory(selected,item);
+                        target.setGold(target.getGold()+(item.getSell()*quantity));
+                        a = true;
+                    } else {
+                        System.out.println("please input the right number");
+                    }
+                }
             } else {
                 stop = true;
             }

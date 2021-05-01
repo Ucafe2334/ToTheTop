@@ -1,13 +1,13 @@
 package Controller.Commands;
 
-import Model.Characters;
+import Model.Abstract.Characters;
 import Model.Enum.TypeItem;
-import Model.Item;
+import Model.Abstract.Item;
 import Model.Player;
 
 import java.util.Scanner;
 
-public interface BattleCommand {
+public interface BattleCommand extends PlayerCommands,BasicCommand{
     static void attack (Characters player, Characters enemy){
 
         String PlayerName = player.getName();
@@ -73,14 +73,14 @@ public interface BattleCommand {
         System.out.println("pilih Item yang ingin digunakan :");
         player.getInventory(TypeItem.UsableItem);
 
-        Scanner scItem = new Scanner(System.in);
-        int selected = scItem.nextInt();
+        int selected = BasicCommand.inputint();
         Item item = player.getInventory(selected);
         PlayerCommands.usingItem(player,item);
         player.removeItem(selected);
     }
 
     static void showstatus(Characters player){
+
         System.out.println(player.getName() + " Current Turn");
         System.out.println("HP         : " + player.getHP() + "/" + player.getMaxHP());
         System.out.println("MP         : " + player.getMP() + "/" + player.getMaxMP());

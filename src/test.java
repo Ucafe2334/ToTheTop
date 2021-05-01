@@ -1,15 +1,17 @@
-import java.util.Scanner;
+import Controller.Commands.BasicCommand;
 
-public class test {
+
+public class test implements BasicCommand {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int ch = sc.nextInt();
+        String b = BasicCommand.inputString();
+        String c = BasicCommand.inputString();
 
-        for(int i = 1; i<=10; i++){
-            if (ch == i){
-                System.out.println(i);
-            }
-        }
+        array.add(b);
+        array.add(c);
+        BasicCommand.printMenu();
+
+        BasicCommand.pause();
+        System.out.println('\f');
     }
 
 }
