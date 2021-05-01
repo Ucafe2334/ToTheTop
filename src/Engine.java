@@ -1,17 +1,15 @@
 import Controller.Battles;
 import Controller.Commands.BasicCommand;
-import Controller.Commands.PlayerCommands;
+import Controller.Commands.PlayerCommand;
 import Controller.Commands.ShopCommand;
 import Data.Characters.DataEnemy;
-import Data.Item.DataUsable;
 import Data.Characters.DataPlayer;
 import Model.Enemy;
 import Model.Player;
 
 import java.util.Random;
-import java.util.Scanner;
 
-public class Engine implements BasicCommand,PlayerCommands{
+public class Engine implements BasicCommand, PlayerCommand {
     public static void main(String[] args) {
         try {
             Random random = new Random();
@@ -30,7 +28,7 @@ public class Engine implements BasicCommand,PlayerCommands{
             ShopCommand.shopMenu(player);
 
             int selectedAi1 = random.nextInt(3-1) + 1;
-            Enemy ai = dataEnemy.getEnemy(selectedAi1);
+            Enemy ai = dataEnemy.getChar(selectedAi1);
 
             Battles.NewGame(player, ai);
         }catch (Exception e){

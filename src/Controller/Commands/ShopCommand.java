@@ -34,7 +34,7 @@ public interface ShopCommand extends BasicCommand{
                     target.getInventory();
                     BasicCommand.pause();
                 }
-                case 5 -> PlayerCommands.showEquipment(target);
+                case 5 -> PlayerCommand.showEquipment(target);
                 default -> stop = true;
             }
         }
@@ -77,8 +77,8 @@ public interface ShopCommand extends BasicCommand{
                 Equipable item = dataEquipable.getItem(equipId);
                 target.setGold(target.getGold()-item.getCost());
 
-                if (!PlayerCommands.alreadyEquip(item, target)) {
-                    PlayerCommands.equip(item, target);
+                if (!PlayerCommand.alreadyEquip(item, target)) {
+                    PlayerCommand.equip(item, target);
                 }
                 if (target.alreadyHave(item)){
                     item.addQuantity(1);
@@ -125,30 +125,34 @@ public interface ShopCommand extends BasicCommand{
             target.getInventory();
             System.out.println("0) back");
             int selected = BasicCommand.inputint("Choose Item");
-            selected -=1;
-            if (selected !=-1){
-                boolean a = false;
-                while (!a){
-                    Item item = target.getInventory(selected);
-                    String builder = "How Much (max :"+item.getQuantity()+")";
-                    int quantity = BasicCommand.inputint(builder);
+            selected --;
+            if (selected != -1) {
+                if (target.getInventory(selected) == null){
+                    System.out.println("There is no item who have that id");
+                }else {
+                    boolean a = false;
+                    while (!a) {
+                        Item item = target.getInventory(selected);
+                        String builder = "How Much (max :" + item.getQuantity() + ")";
+                        int quantity = BasicCommand.inputint(builder);
 
-                    if (item.getQuantity() == quantity){
-                        if (item.getTypeI() == TypeItem.EquipableItem){
-                            PlayerCommands.unequipped((Equipable) item,target);
+                        if (item.getQuantity() == quantity) {
+                            if (item.getTypeI() == TypeItem.EquipableItem) {
+                                PlayerCommand.unequipped((Equipable) item, target);
+                            }
+                            target.removeItem(selected);
+                            target.setGold(target.getGold() + (item.getSell() * quantity));
+                            a = true;
+                        } else if (item.getQuantity() < quantity) {
+                            System.out.println("you don't even have that much");
+                        } else if (quantity > 0) {
+                            item.removeSome(quantity);
+                            target.replaceInventory(selected, item);
+                            target.setGold(target.getGold() + (item.getSell() * quantity));
+                            a = true;
+                        } else {
+                            System.out.println("please input the right number");
                         }
-                        target.removeItem(selected);
-                        target.setGold(target.getGold()+(item.getSell()*quantity));
-                        a = true;
-                    } else if(item.getQuantity() < quantity){
-                        System.out.println("you don't even have that much");
-                    } else if(quantity > 0) {
-                        item.removeSome(quantity);
-                        target.replaceInventory(selected,item);
-                        target.setGold(target.getGold()+(item.getSell()*quantity));
-                        a = true;
-                    } else {
-                        System.out.println("please input the right number");
                     }
                 }
             } else {

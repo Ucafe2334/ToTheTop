@@ -5,9 +5,7 @@ import Model.Enum.TypeItem;
 import Model.Abstract.Item;
 import Model.Player;
 
-import java.util.Scanner;
-
-public interface BattleCommand extends PlayerCommands,BasicCommand{
+public interface BattleCommand extends PlayerCommand,BasicCommand{
     static void attack (Characters player, Characters enemy){
 
         String PlayerName = player.getName();
@@ -17,7 +15,7 @@ public interface BattleCommand extends PlayerCommands,BasicCommand{
         player.setGuard(false);
 
         String EnemyName = enemy.getName();
-        int EnemyDef = enemy.getDeff();
+        int EnemyDef = enemy.getDef();
         int EnemyCurrentHP = enemy.getHP();
         int EnemyTotalHP = enemy.getMaxHP();
 
@@ -30,25 +28,22 @@ public interface BattleCommand extends PlayerCommands,BasicCommand{
             Result = EnemyDef-PlayerAttack;
             player.setHP(PlayerCurrentHP - Result);
 
-            System.out.println(PlayerName + " took " + Result + "Demage");
+            System.out.println(PlayerName + " took " + Result + "Damage");
             System.out.println("HP Drop Become " + player.getHP() + "/" + PlayerMaxHP);
         } else if (PlayerAttack == EnemyDef && enemy.isGuard()){
-            System.out.println("Attack Has Been Guarded/nNo One Take Demage");
+            System.out.println("Attack Has Been Guarded/nNo One Take Damage");
         }else{
             Result = PlayerAttack-EnemyDef;
             enemy.setHP(EnemyCurrentHP - Result);
 
-            System.out.println(EnemyName + " took " + Result + " Demage");
+            System.out.println(EnemyName + " took " + Result + " Damage");
             System.out.println(("HP Drop Become " + enemy.getHP() + "/" + EnemyTotalHP));
         }
-
-        System.out.println("---------------Next Turn--------------");
     }
 
     static void guard (Characters player){
         player.setGuard(true);
         System.out.println(player.getName() + " Ready To Guard Next Attack");
-        System.out.println("---------------Next Turn--------------");
     }
 
     static void skip(Characters player){
@@ -64,23 +59,25 @@ public interface BattleCommand extends PlayerCommands,BasicCommand{
             System.out.println(PlayerName + " Recovery " + Result + " HP");
             System.out.println("HP recovered become " + PlayerCurrentHP + "/" + PlayerMaxHP);
         } else {
-            System.out.println(PlayerName + " Just Take Some Rest");
+            System.out.println(PlayerName + " Just Took Some Rest");
         }
-        System.out.println("---------------Next Turn--------------");
     }
 
     static void useItem(Player player){
-        System.out.println("pilih Item yang ingin digunakan :");
         player.getInventory(TypeItem.UsableItem);
 
-        int selected = BasicCommand.inputint();
-        Item item = player.getInventory(selected);
-        PlayerCommands.usingItem(player,item);
-        player.removeItem(selected);
+        int selected = BasicCommand.inputint("Choose Item");
+        Item item = player.getInventory(selected-1);
+        PlayerCommand.usingItem(player,item);
+        if (item.getQuantity() > 1){
+            item.removeSome(1);
+            player.replaceInventory(selected-1,item);
+        } else {
+            player.removeItem(selected-1);
+        }
     }
 
     static void showstatus(Characters player){
-
         System.out.println(player.getName() + " Current Turn");
         System.out.println("HP         : " + player.getHP() + "/" + player.getMaxHP());
         System.out.println("MP         : " + player.getMP() + "/" + player.getMaxMP());

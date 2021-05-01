@@ -5,7 +5,7 @@ import Model.Abstract.Item;
 import Model.ItemType.Equipable;
 import Model.Player;
 
-public interface PlayerCommands extends BasicCommand{
+public interface PlayerCommand extends BasicCommand{
 
     static void equip(Equipable item, Player target){
         TypeEquip type = item.equipType;
@@ -30,7 +30,7 @@ public interface PlayerCommands extends BasicCommand{
         target.setPA(target.getPA()+item.getPA());
         target.setMA(target.getMA()+item.getMA());
         target.setSpeed(target.getSpeed()+item.getSpeed());
-        target.setDeff(target.getDeff()+item.getDeff());
+        target.setDef(target.getDef()+item.getDef());
     }
 
     static void unequipped(Equipable item, Player target){
@@ -56,7 +56,7 @@ public interface PlayerCommands extends BasicCommand{
         target.setPA(target.getPA()-item.getPA());
         target.setMA(target.getMA()-item.getMA());
         target.setSpeed(target.getSpeed()-item.getSpeed());
-        target.setDeff(target.getDeff()-item.getDeff());
+        target.setDef(target.getDef()-item.getDef());
     }
 
     static void usingItem(Player player, Item usable){
@@ -97,7 +97,7 @@ public interface PlayerCommands extends BasicCommand{
         System.out.println("HP\t: " + target.getHP() + "/" + target.getMaxHP());
         System.out.println("MP\t: " + target.getMP() + "/" + target.getMaxMP());
         System.out.println("PA/MA/DEF/SPD");
-        System.out.println(target.getPA() + "/" + target.getMA() + "/" + target.getDeff() + "/" + target.getSpeed());
+        System.out.println(target.getPA() + "/" + target.getMA() + "/" + target.getDef() + "/" + target.getSpeed());
 
         BasicCommand.pauseE();
     }

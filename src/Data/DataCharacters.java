@@ -16,7 +16,7 @@ public abstract class DataCharacters {
             System.out.println("HP : " + idChar.getMaxHP());
             System.out.println("MP : " + idChar.getMaxMP());
             System.out.println("PA/MA/DEF/SPD");
-            System.out.println(idChar.getPA() + "/" + idChar.getMA() + "/" + idChar.getDeff() + "/" + idChar.getSpeed());
+            System.out.println(idChar.getPA() + "/" + idChar.getMA() + "/" + idChar.getDef() + "/" + idChar.getSpeed());
             System.out.println(" ");
         }
     }

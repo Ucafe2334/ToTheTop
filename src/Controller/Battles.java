@@ -4,6 +4,7 @@ import Controller.Commands.BasicCommand;
 import Controller.Commands.BattleCommand;
 import Model.Abstract.Characters;
 import Model.Enemy;
+import Model.Enum.TypeAttribute;
 import Model.Player;
 
 import java.util.Random;
@@ -36,9 +37,24 @@ public class Battles implements BasicCommand {
 
     public static void battleAi (Enemy ai, Player target){
         try {
+            BasicCommand.tittle("Next Turn");
+            BattleCommand.showstatus(ai);
             Random random = new Random();
+            int ch;
+            if (ai.getHP() > (int) (ai.getMaxHP()*0.5)){
+                if (ai.getSkill().getAttribute() == TypeAttribute.physical){
+                    ch = 2;
+                }else if (ai.getSkill().getManaCost() < ai.getMP()){
+                    ch = random.nextInt(2-1)+1;
+                }else {
+                    ch = 1;
+                }
+            }else if (ai.getHP() < (int)(ai.getMaxHP()*0.5)){
+                ch = random.nextInt(3-1)+1;
+            } else {
+                ch = 3;
+            }
 
-            int ch = random.nextInt(3-1)+1;
             switch (ch){
                 case 1-> BattleCommand.attack(ai, target);
                 case 2-> BattleCommand.guard(ai);
@@ -47,7 +63,7 @@ public class Battles implements BasicCommand {
             }
             EndGame = target.isDead();
         }catch (Exception e){
-            System.out.println("Battle ERROR!!");
+            System.out.println(e);
         }
     }
 
@@ -64,7 +80,7 @@ public class Battles implements BasicCommand {
                 turn = 1;
             }
         }
-
+        BasicCommand.tittle("Battle End\nResult");
         System.out.println(CurrentTurn.getName() + " is The Winner!!!");
     }
 

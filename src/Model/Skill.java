@@ -1,13 +1,15 @@
 package Model;
 
 import Model.Abstract.BasicAttribute;
+import Model.Enum.TypeAttribute;
 
 public class Skill extends BasicAttribute {
-    private int basePA;
-    private int baseMA;
-    private int percentagePA;
-    private int percentageMA;
-    private int manaCost;
+    private int basePA = 0;
+    private int baseMA = 0;
+    private int percentagePA = 0;
+    private int percentageMA = 0;
+    private int manaCost = 0;
+    TypeAttribute attribute;
 
     public Skill() {
         this.name = "empty";
@@ -19,6 +21,7 @@ public class Skill extends BasicAttribute {
         this.desc = desc;
         this.basePA = basePA;
         this.percentagePA = percentagePA;
+        this.attribute = TypeAttribute.physical;
     }
 
     public Skill(String name, String desc, int baseMA, int percentageMA, int manaCost) {
@@ -27,6 +30,7 @@ public class Skill extends BasicAttribute {
         this.baseMA = baseMA;
         this.percentageMA = percentageMA;
         this.manaCost = manaCost;
+        this.attribute = TypeAttribute.magic;
     }
 
     public Skill(String name, String desc, int MP, int HP,int percentageMA, int manaCost){
@@ -36,7 +40,18 @@ public class Skill extends BasicAttribute {
         this.HP = HP;
         this.percentageMA = percentageMA;
         this.manaCost = manaCost;
+        this.attribute = TypeAttribute.buff;
+    }
 
+    public Skill(String name, String desc,int basePA, int percentagePA, int baseMA, int percentageMA, int manaCost) {
+        this.name = name;
+        this.desc = desc;
+        this.basePA = basePA;
+        this.percentagePA = percentagePA;
+        this.baseMA = baseMA;
+        this.percentageMA = percentageMA;
+        this.manaCost = manaCost;
+        this.attribute = TypeAttribute.physicalAndMagic;
     }
 
     @Override
@@ -61,5 +76,8 @@ public class Skill extends BasicAttribute {
     }
     public int getManaCost() {
         return manaCost;
+    }
+    public TypeAttribute getAttribute() {
+        return attribute;
     }
 }

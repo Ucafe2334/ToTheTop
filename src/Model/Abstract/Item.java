@@ -1,10 +1,9 @@
 package Model.Abstract;
 
-import Model.Abstract.BasicAttribute;
 import Model.Enum.*;
 
-public abstract class Item extends BasicAttribute {
-    protected int id;
+public abstract class Item extends BasicAttribute implements Comparable<Item> {
+    protected int id;                   //id for item
 
     protected TypeItem typeI;
     protected int cost;
@@ -47,4 +46,9 @@ public abstract class Item extends BasicAttribute {
         this.quantity = this.quantity - quantity;
     }
     public void removeAll(){this.quantity = 0;}
+
+    @Override
+    public int compareTo(Item o) {
+        return this.getTypeI().compareTo(o.getTypeI());
+    }
 }

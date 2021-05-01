@@ -4,9 +4,10 @@ import Model.Abstract.Characters;
 import Model.Abstract.Item;
 
 public class Enemy extends Characters {
-    private Item[] dropitem;
+    private final Skill skill;
+    private Item[] dropItem;
 
-    public Enemy(String playerName, String desc, int hp, int mp, int pa, int ma, int deff, int spd) {
+    public Enemy(String playerName, String desc, int hp, int mp, int pa, int ma, int def, int spd, Skill skill) {
         this.name = playerName;
         this.desc = desc;
 
@@ -16,16 +17,20 @@ public class Enemy extends Characters {
         this.MaxMP = mp;
         this.PA = pa;
         this.MA = ma;
-        this.deff = deff;
+        this.def = def;
         this.speed = spd;
 
+        this.skill = skill;
     }
 
-    public Item[] getDropitem() {
-        return dropitem;
+    public Item[] getDropItem() {
+        return dropItem;
+    }
+    public Skill getSkill() {
+        return skill;
     }
 
-    public void setDropitem(Item[] dropitem) {
-        this.dropitem = dropitem;
+    public void setDropItem(Item[] dropItem) {
+        this.dropItem = dropItem;
     }
 }

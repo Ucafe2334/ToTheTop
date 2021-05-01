@@ -6,24 +6,26 @@ import Model.Enum.TypeItem;
 import Model.ItemType.Equipable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Player extends Characters{
     //equiped
-    private Equipable weapons;//weapon yang di equip
-    private Equipable secondaryWeapons;//weapon ke 2 yang di equip
-    private Equipable armor;//armor yang di equip
-    private Equipable accessories;//accesories yang di equip
+    private Equipable weapons;              //weapon yang di equip
+    private Equipable secondaryWeapons;     //weapon ke 2 yang di equip
+    private Equipable armor;                //armor yang di equip
+    private Equipable accessories;          //accessories yang di equip
 
     //skill slot
-    private Skill slot1;
-    private Skill slot2;
-    private Skill slot3;
+    private Skill slot1;                    //slot skill 1
+    private Skill slot2;                    //slot skill 2
+    private Skill slot3;                    //slot skill 3
 
     //inventory
     private final ArrayList<Item> inventory;
 
     //constructor
-    public Player(String playerName, String desc, int hp, int mp, int pa, int ma, int deff, int spd) {
+    public Player(String playerName, String desc, int hp, int mp, int pa, int ma, int def, int spd) {
         this.name = playerName;
         this.desc = desc;
 
@@ -42,23 +44,39 @@ public class Player extends Characters{
         this.MaxMP = mp;
         this.PA = pa;
         this.MA = ma;
-        this.deff = deff;
+        this.def = def;
         this.speed = spd;
         this.inventory = new ArrayList<>();
     }
 
     //getter
     public Equipable getSecondaryWeapons() {
-        return secondaryWeapons;
+        try {
+            return secondaryWeapons;
+        }catch (Exception e){
+            return null;
+        }
     }
     public Equipable getWeapons() {
-        return weapons;
+        try {
+            return weapons;
+        }catch (Exception e){
+            return null;
+        }
     }
     public Equipable getArmor() {
-        return armor;
+        try {
+            return armor;
+        }catch (Exception e){
+            return null;
+        }
     }
     public Equipable getAccessories() {
-        return accessories;
+        try {
+            return accessories;
+        }catch (Exception e){
+            return null;
+        }
     }
 
     //inventory getter
@@ -77,7 +95,11 @@ public class Player extends Characters{
         }
     }
     public Item getInventory(int id){
-        return inventory.get(id);
+        try {
+            return inventory.get(id);
+        } catch (Exception e){
+            return null;
+        }
     }
     public int getInventoryQuantity(Item item){
         Item dummy = inventory.stream().
@@ -97,23 +119,32 @@ public class Player extends Characters{
         Item dummy = inventory.stream().
                 filter(inventory -> item.getName().equalsIgnoreCase(inventory.getName())).
                 findAny().orElse(null);
-        if (dummy == null){
-            return false;
-        } else {
-            return true;
-        }
+        return dummy != null;
     }
 
 
     //getter skill slot
     public Skill getSlot1() {
-        return slot1;
+        try {
+            return slot1;
+        }catch (Exception e){
+            return null;
+        }
+
     }
     public Skill getSlot2() {
-        return slot2;
+        try {
+            return slot2;
+        }catch (Exception e){
+            return null;
+        }
     }
     public Skill getSlot3() {
-        return slot3;
+        try {
+            return slot3;
+        }catch (Exception e){
+            return null;
+        }
     }
 
     //setter Equipment
@@ -133,6 +164,7 @@ public class Player extends Characters{
     //setter Inventory
     public void setInventory(Item item) {
         this.inventory.add(item);
+        inventory.sort(Item::compareTo);
     }
     public void replaceInventory(int id, Item item){
         this.inventory.remove(id);
@@ -141,6 +173,7 @@ public class Player extends Characters{
     public void removeItem(int id){
         this.inventory.get(id).removeAll();
         this.inventory.remove(id);
+        inventory.sort(Item::compareTo);
     }
 
     //setter skill slot
@@ -153,4 +186,6 @@ public class Player extends Characters{
     public void setSlot3(Skill slot3) {
         this.slot3 = slot3;
     }
+
+
 }

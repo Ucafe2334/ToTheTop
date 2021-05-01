@@ -2,16 +2,16 @@ package Model.Abstract;
 
 public abstract class BasicAttribute {
     //name and descriptions
-    protected String name;
-    protected String desc;
+    protected String name;              //name (item, player, or enemy)
+    protected String desc;              //descriptions about (item, player, or enemy)
 
     //stat characters
-    protected int HP; //total health poin
-    protected int MP; //total mana poin
-    protected int PA; //total physical attack
-    protected int MA; //total magic attack
-    protected int deff; //total defence
-    protected int speed; //total speed
+    protected int HP;                   //total health point
+    protected int MP;                   //total mana point
+    protected int PA;                   //total physical attack
+    protected int MA;                   //total magic attack
+    protected int def;                  //total defence
+    protected int speed;                //total speed
 
     //getter
     public String getName() {
@@ -32,8 +32,8 @@ public abstract class BasicAttribute {
     public int getMA() {
         return MA;
     }
-    public int getDeff() {
-        return deff;
+    public int getDef() {
+        return def;
     }
     public int getSpeed() {
         return speed;
@@ -55,8 +55,8 @@ public abstract class BasicAttribute {
     public void setMA(int MA) {
         this.MA = MA;
     }
-    public void setDeff(int deff) {
-        this.deff = deff;
+    public void setDef(int def) {
+        this.def = def;
     }
     public void setSpeed(int speed) {
         this.speed = speed;

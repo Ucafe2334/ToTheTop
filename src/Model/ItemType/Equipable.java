@@ -13,7 +13,7 @@ public class Equipable extends Item{
         this.MP = mp;
         this.PA = pa;
         this.MA = ma;
-        this.deff = deff;
+        this.def = deff;
         this.speed = spd;
 
         this.equipType = typeE;
