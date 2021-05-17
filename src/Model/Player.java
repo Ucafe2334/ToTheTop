@@ -6,10 +6,8 @@ import Model.Enum.TypeItem;
 import Model.ItemType.Equipable;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
-public class Player extends Characters{
+public class Player extends Characters {
     //equiped
     private Equipable weapons;              //weapon yang di equip
     private Equipable secondaryWeapons;     //weapon ke 2 yang di equip
@@ -29,15 +27,6 @@ public class Player extends Characters{
         this.name = playerName;
         this.desc = desc;
 
-        this.weapons = new Equipable();
-        this.secondaryWeapons = new Equipable();
-        this.armor = new Equipable();
-        this.accessories = new Equipable();
-
-        this.slot1 = new Skill();
-        this.slot2 = new Skill();
-        this.slot3 = new Skill();
-
         this.HP = hp;
         this.MP = mp;
         this.MaxHP = hp;
@@ -50,60 +39,33 @@ public class Player extends Characters{
     }
 
     //getter
-    public Equipable getSecondaryWeapons() {
-        try {
-            return secondaryWeapons;
-        }catch (Exception e){
-            return null;
-        }
-    }
-    public Equipable getWeapons() {
-        try {
-            return weapons;
-        }catch (Exception e){
-            return null;
-        }
-    }
-    public Equipable getArmor() {
-        try {
-            return armor;
-        }catch (Exception e){
-            return null;
-        }
-    }
-    public Equipable getAccessories() {
-        try {
-            return accessories;
-        }catch (Exception e){
-            return null;
-        }
-    }
+    public Equipable getSecondaryWeapons() { return secondaryWeapons;}
+    public Equipable getWeapons() {return weapons;}
+    public Equipable getArmor() { return armor;}
+    public Equipable getAccessories() { return accessories;}
 
     //inventory getter
+    public ArrayList<Item> getInvetoryList(){
+        return inventory;
+    }
     public void getInventory() {
         for (int i = 0; i < inventory.size(); i++){
             Item item = inventory.get(i);
-            System.out.println((i+1)+") "+item.getName()+"\t x"+item.getQuantity());
+            System.out.println((i+1)+") "+item+"\t x"+item.getQuantity());
         }
     }
     public void getInventory(TypeItem type) {
         for (int i = 0; i < inventory.size(); i++){
             Item item = inventory.get(i);
             if (item.getTypeI() == type){
-                System.out.println((i+1)+") "+item.getName()+"\t x"+item.getQuantity());
+                System.out.println((i+1)+") "+item+"\t x"+item.getQuantity());
             }
         }
     }
-    public Item getInventory(int id){
-        try {
-            return inventory.get(id);
-        } catch (Exception e){
-            return null;
-        }
-    }
+    public Item getInventory(int id){ return inventory.get(id);}
     public int getInventoryQuantity(Item item){
         Item dummy = inventory.stream().
-                filter(inventory -> item.getName().equalsIgnoreCase(inventory.getName())).
+                filter(inventory -> item.toString().equalsIgnoreCase(inventory.toString())).
                 findAny().orElse(null);
         if (inventory.isEmpty()){
             return 0;
@@ -117,7 +79,7 @@ public class Player extends Characters{
     }
     public boolean alreadyHave(Item item){
         Item dummy = inventory.stream().
-                filter(inventory -> item.getName().equalsIgnoreCase(inventory.getName())).
+                filter(inventory -> item.toString().equalsIgnoreCase(inventory.toString())).
                 findAny().orElse(null);
         return dummy != null;
     }
@@ -186,6 +148,4 @@ public class Player extends Characters{
     public void setSlot3(Skill slot3) {
         this.slot3 = slot3;
     }
-
-
 }

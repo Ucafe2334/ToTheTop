@@ -14,9 +14,15 @@ public abstract class BasicAttribute {
     protected int speed;                //total speed
 
     //getter
-    public String getName() {
-        return name;
-    }
+    @Override
+    public String toString() {
+        try {
+            return name;
+        } catch (NullPointerException n){
+            return "";
+        }
+
+    } //return object to string (return name of this object)
     public String getDesc() {
         return desc;
     }

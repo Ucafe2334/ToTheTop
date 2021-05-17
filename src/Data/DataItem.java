@@ -14,7 +14,7 @@ public abstract class DataItem {
             Integer id = entry.getKey();
             Item idItem = entry.getValue();
 
-            System.out.println(id + "> " + idItem.getName());
+            System.out.println(id + "> " + idItem);
             System.out.println("desc : "+idItem.getDesc());
         }
     }
@@ -24,8 +24,9 @@ public abstract class DataItem {
             Integer id = entry.getKey();
             Item idItem = entry.getValue();
 
-            System.out.println(id + "> " + idItem.getName()+"\tx"+target.getInventoryQuantity(idItem));
-            System.out.println("desc : "+idItem.getDesc());
+            System.out.println(id + "> " + idItem+"\tx"+target.getInventoryQuantity(idItem));
+            System.out.println("price : "+idItem.getCost());
+            System.out.println("desc : "+idItem.getDesc()+"\n");
         }
     }
 

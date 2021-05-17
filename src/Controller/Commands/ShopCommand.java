@@ -1,16 +1,19 @@
 package Controller.Commands;
 
 import Data.Item.DataEquipable;
+import Data.Item.DataSkillScroll;
 import Data.Item.DataUsable;
 import Model.Abstract.Item;
 import Model.Enum.TypeItem;
 import Model.ItemType.Equipable;
+import Model.ItemType.SkillScroll;
 import Model.ItemType.Usable;
 import Model.Player;
 
 public interface ShopCommand extends BasicCommand{
     DataEquipable dataEquipable = new DataEquipable();
     DataUsable dataUsable = new DataUsable();
+    DataSkillScroll dataSkillScroll = new DataSkillScroll();
 
     static void shopMenu(Player target){
         boolean stop = false;
@@ -31,8 +34,18 @@ public interface ShopCommand extends BasicCommand{
                 case 2 -> sellMenu(target);
                 case 4 -> {
                     BasicCommand.tittle("Your Inventory");
-                    target.getInventory();
-                    BasicCommand.pause();
+                    if (target.getInvetoryList().isEmpty()){
+                        System.out.println("Empty");
+                        BasicCommand.pauseE();
+                    } else {
+                        BasicCommand.printMenu(target.getInvetoryList());
+                        int ch = BasicCommand.inputint();
+                        if (ch == 0){
+                            BasicCommand.pauseE();
+                        } else {
+                            PlayerCommand.manageItem(target,ch-1);
+                        }
+                    }
                 }
                 case 5 -> PlayerCommand.showEquipment(target);
                 default -> stop = true;
@@ -49,16 +62,43 @@ public interface ShopCommand extends BasicCommand{
 
             array.add("Equipment");
             array.add("Item");
+            array.add("Skill Scroll");
             BasicCommand.printMenu();
 
             int pil = BasicCommand.inputint();
             switch (pil){
                 case 1 -> equipmentMenu(target);
                 case 2 -> itemMenu(target);
+                case 3 -> skillMenu(target);
                 default -> stop = true;
             }
         }
 
+    }
+
+    static void skillMenu(Player target){
+        boolean stop = false;
+        while (!stop){
+            BasicCommand.tittle("Skill Scroll Shop");
+            System.out.println("your gold :"+target.getGold());
+
+            dataSkillScroll.getItem(target);
+            System.out.println("0> back");
+
+            int ItemId = BasicCommand.inputint("Choose Scroll");
+            if (ItemId == 0){
+                stop = true;
+            } else {
+                SkillScroll item = dataSkillScroll.getItem(ItemId);
+                target.setGold(target.getGold()-item.getCost());
+                if (target.alreadyHave(item)){
+                    item.addQuantity(1);
+                } else {
+                    item.addQuantity(1);
+                    target.setInventory(item);
+                }
+            }
+        }
     }
 
     static void equipmentMenu(Player target){
@@ -77,7 +117,8 @@ public interface ShopCommand extends BasicCommand{
                 Equipable item = dataEquipable.getItem(equipId);
                 target.setGold(target.getGold()-item.getCost());
 
-                if (!PlayerCommand.alreadyEquip(item, target)) {
+                if (!PlayerCommand.alreadyEquip(item.equipType, target)) {
+                    System.out.println(PlayerCommand.alreadyEquip(item, target));
                     PlayerCommand.equip(item, target);
                 }
                 if (target.alreadyHave(item)){

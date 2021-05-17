@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Data>
+    <skill>
+        <name>Double Slash</name>
+        <desc>inflict two hits and deal light damage to enemy</desc>
+        <basePA>100</basePA>
+        <percentagePA>150</percentagePA>
+    </skill>
+
+    <skill>
+        <name>Fireball</name>
+        <desc>weak magic, but can burn anything</desc>
+        <baseMA>100</baseMA>
+        <percentageMA>150</percentageMA>
+        <manaCost>100</manaCost>
+    </skill>
+
+    <skill>
+        <name>Heal</name>
+        <MP>0</MP>
+        <HP>100</HP>
+        <percentageMA>150</percentageMA>
+        <manaCost>100</manaCost>
+    </skill>
+
+    <skill></skill>
+</Data>

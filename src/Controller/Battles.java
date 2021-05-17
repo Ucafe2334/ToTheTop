@@ -74,14 +74,18 @@ public class Battles implements BasicCommand {
                 CurrentTurn = player;
                 Battle(player, Ai);
                 turn = 2;
+                BasicCommand.nextTurn();
+                BasicCommand.pause();
             }else {
                 CurrentTurn = Ai;
                 battleAi(Ai, player);
                 turn = 1;
+                BasicCommand.nextTurn();
+                BasicCommand.pause();
             }
         }
         BasicCommand.tittle("Battle End\nResult");
-        System.out.println(CurrentTurn.getName() + " is The Winner!!!");
+        System.out.println(CurrentTurn + " is The Winner!!!");
     }
 
 }

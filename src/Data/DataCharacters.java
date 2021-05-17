@@ -12,7 +12,7 @@ public abstract class DataCharacters {
             Integer id = entry.getKey();
             Characters idChar = entry.getValue();
 
-            System.out.println(id + "> " + idChar.getName());
+            System.out.println(id + "> " + idChar);
             System.out.println("HP : " + idChar.getMaxHP());
             System.out.println("MP : " + idChar.getMaxMP());
             System.out.println("PA/MA/DEF/SPD");

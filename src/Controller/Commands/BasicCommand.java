@@ -1,5 +1,7 @@
 package Controller.Commands;
 
+import Model.Abstract.Item;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,6 +41,17 @@ public interface BasicCommand {
         array.clear();
     }
 
+    static void printMenu(ArrayList<Item> item) {
+        int i = 0;
+        System.out.println("Menu");
+        for (Item data : item) {
+            i++;
+            System.out.println(i + ") " + data);
+        }
+        System.out.println("0) Back");
+        array.clear();
+    }
+
     static void pause() {
         System.out.println("Press Any Key To Continue...");
         new java.util.Scanner(System.in).nextLine();
@@ -52,5 +65,15 @@ public interface BasicCommand {
         System.out.println("========================================");
         System.out.println(name);
         System.out.println("========================================");
+    }
+
+    static void subtittle(String name){
+        System.out.println("-----------------------------------------");
+        System.out.println(name);
+        System.out.println("-----------------------------------------");
+    }
+
+    static void nextTurn(){
+        System.out.println("-----------------NEXT TURN---------------");
     }
 }

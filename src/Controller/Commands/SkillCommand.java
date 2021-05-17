@@ -1,34 +1,63 @@
 package Controller.Commands;
 
+import Model.Abstract.Characters;
 import Model.Enum.TypeAttribute;
 import Model.Player;
 import Model.Skill;
 
 public interface SkillCommand {
 
-    static void skillUse(Player target, Skill skill){
-        int damagePA = 0;
-        int damageMA = 0;
+    static void skillUse(Characters self, Characters target, Skill skill){
+        if (!skill.getSelf()){
+            skillToEnemy(self, target, skill);
+        } else if (skill.getSelf()){
+            skillToSelf(self,skill);
+        }
+    }
+
+    static void skillToSelf(Characters self, Skill skill){
         int healHP = 0;
         int healMP = 0;
-        if (skill.getAttribute() == TypeAttribute.physical){
-            damagePA += skill.getBasePA()+(target.getPA() * skill.getPercentagePA());
+        if (skill.getHP() != 0){
+            healHP = skill.getHP()+(self.getMA()+skill.getPercentageMA());
+        }
+        if (skill.getMP() != 0) {
+            healMP = skill.getMP() + (self.getMA() + skill.getPercentageMA());
+            self.setHP(self.getHP());
+        }
+        self.setHP(self.getHP()+healHP);
+        self.setMP(self.getMP()+healMP-skill.getManaCost());
+    }
 
+    static void skillToEnemy(Characters self, Characters enemy, Skill skill){
+        int damagePA = 0;
+        int damageMA = 0;
+
+        if (skill.getAttribute() == TypeAttribute.physical){
+            damagePA += skill.getBasePA()+(self.getPA() * skill.getPercentagePA());
         }else if (skill.getAttribute() == TypeAttribute.magic){
-            damageMA = skill.getBaseMA()+(target.getMA() * skill.getPercentageMA());
-        }else if (skill.getAttribute() == TypeAttribute.buff){
-            if (skill.getHP() != 0){
-                healHP = skill.getHP()+(target.getMA()+skill.getPercentageMA());
-            }
-            if (skill.getMP() != 0){
-                healMP = skill.getMP()+(target.getMA()+skill.getPercentageMA());
-            }
+            damageMA = skill.getBaseMA()+(self.getMA() * skill.getPercentageMA());
         }else if (skill.getAttribute() == TypeAttribute.physicalAndMagic){
-            damagePA += skill.getBasePA()+(target.getPA() * skill.getPercentagePA());
-            damageMA = skill.getBaseMA()+(target.getMA() * skill.getPercentageMA());
+            damagePA += skill.getBasePA()+(self.getPA() * skill.getPercentagePA());
+            damageMA = skill.getBaseMA()+(self.getMA() * skill.getPercentageMA());
         }
 
-        target.setHP(target.getHP()-damageMA-damagePA+healHP);
-        target.setMP(target.getMP()+healMP-skill.getManaCost());
+        enemy.setHP(enemy.getHP()-damageMA-damagePA);
+    }
+
+    static Skill skillSelected(Player user, int selected){
+        if (selected == 1){
+            return user.getSlot1();
+        } else if (selected == 2){
+            return user.getSlot2();
+        } else if (selected == 3){
+            return user.getSlot3();
+        }else {
+            return null;
+        }
+    }
+
+    static Boolean skillChecking(Player self, int selected){
+        return skillSelected(self, selected) != null;
     }
 }

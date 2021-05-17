@@ -9,12 +9,8 @@ public class Skill extends BasicAttribute {
     private int percentagePA = 0;
     private int percentageMA = 0;
     private int manaCost = 0;
+    private boolean self;
     TypeAttribute attribute;
-
-    public Skill() {
-        this.name = "empty";
-        this.desc = "";
-    }
 
     public Skill(String name, String desc, int basePA, int percentagePA) {
         this.name = name;
@@ -22,6 +18,7 @@ public class Skill extends BasicAttribute {
         this.basePA = basePA;
         this.percentagePA = percentagePA;
         this.attribute = TypeAttribute.physical;
+        this.self = false;
     }
 
     public Skill(String name, String desc, int baseMA, int percentageMA, int manaCost) {
@@ -31,6 +28,7 @@ public class Skill extends BasicAttribute {
         this.percentageMA = percentageMA;
         this.manaCost = manaCost;
         this.attribute = TypeAttribute.magic;
+        this.self = false;
     }
 
     public Skill(String name, String desc, int MP, int HP,int percentageMA, int manaCost){
@@ -41,6 +39,7 @@ public class Skill extends BasicAttribute {
         this.percentageMA = percentageMA;
         this.manaCost = manaCost;
         this.attribute = TypeAttribute.buff;
+        this.self = true;
     }
 
     public Skill(String name, String desc,int basePA, int percentagePA, int baseMA, int percentageMA, int manaCost) {
@@ -52,12 +51,9 @@ public class Skill extends BasicAttribute {
         this.percentageMA = percentageMA;
         this.manaCost = manaCost;
         this.attribute = TypeAttribute.physicalAndMagic;
+        this.self = false;
     }
 
-    @Override
-    public String getName() {
-        return super.getName();
-    }
     @Override
     public String getDesc() {
         return super.getDesc();
@@ -79,5 +75,8 @@ public class Skill extends BasicAttribute {
     }
     public TypeAttribute getAttribute() {
         return attribute;
+    }
+    public Boolean getSelf(){
+        return this.self;
     }
 }

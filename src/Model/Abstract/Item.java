@@ -3,19 +3,13 @@ package Model.Abstract;
 import Model.Enum.*;
 
 public abstract class Item extends BasicAttribute implements Comparable<Item> {
-    protected int id;                   //id for item
-
     protected TypeItem typeI;
     protected int cost;
     protected int sell;
     protected int quantity = 0;
 
-    public Item(){
-        this.id = 0;
-    }
 
-    public Item(int id, String name, String desc, TypeItem typeI, int cost) {
-        this.id = id;
+    public Item(String name, String desc, TypeItem typeI, int cost) {
         this.name = name;
         this.desc = desc;
         this.typeI = typeI;
@@ -31,9 +25,6 @@ public abstract class Item extends BasicAttribute implements Comparable<Item> {
     }
     public int getCost() {
         return cost;
-    }
-    public int getId() {
-        return id;
     }
     public int getSell() {
         return sell;
