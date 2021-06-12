@@ -16,7 +16,7 @@ public class Battles implements BasicCommand {
     public static void Battle (Player player, Enemy enemy){
         BattleCommand.showstatus(player);
         System.out.println("What Will You Do?");
-        System.out.println("1. Attack 2. Guard 3. UseItem 4.Skip Turn");
+        System.out.println("1. Attack 2. Guard 3. UseItem 4.Skill 5.Skip Turn");
         System.out.println("Your Action : ");
 
         try {
@@ -25,7 +25,8 @@ public class Battles implements BasicCommand {
                 case 1-> BattleCommand.attack(player, enemy);
                 case 2-> BattleCommand.guard(player);
                 case 3-> BattleCommand.useItem(player);
-                case 4-> BattleCommand.skip(player);
+                case 4-> BattleCommand.useSkill(player,enemy);
+                case 5 -> BattleCommand.skip(player);
                 default-> System.out.println("error");
             }
 

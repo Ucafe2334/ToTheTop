@@ -77,17 +77,16 @@ public interface BattleCommand extends PlayerCommand,BasicCommand{
     }
 
     static void useSkill(Player player, Enemy enemy){
-        array.add(player.getSlot1().toString());
-        array.add(player.getSlot2().toString());
-        array.add(player.getSlot3().toString());
+        PlayerCommand.showSkill(player);
 
-        BasicCommand.printMenu();
-        int selected = BasicCommand.inputint();
+        int selected = BasicCommand.inputint("select slot to use");
         Skill dummy = SkillCommand.skillSelected(player,selected);
         if (dummy != null){
+            System.out.println(dummy);
             SkillCommand.skillUse(player,enemy,dummy);
         } else {
             System.out.println("Skill not found");
+            System.out.println("You skip your turn");
         }
     }
 

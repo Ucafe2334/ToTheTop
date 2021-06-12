@@ -76,4 +76,10 @@ public interface BasicCommand {
     static void nextTurn(){
         System.out.println("-----------------NEXT TURN---------------");
     }
+
+    static void npcTalk(String name, String words){
+        System.out.println(name);
+        System.out.println(words);
+        pauseE();
+    }
 }

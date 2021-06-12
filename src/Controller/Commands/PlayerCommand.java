@@ -145,6 +145,7 @@ public interface PlayerCommand extends BasicCommand{
 
     static void showEquipment(Player target){
         showStatus(target);
+        showSkill(target);
         BasicCommand.tittle("Equipment");
 
         System.out.println("Main Weapons : "+target.getWeapons());
@@ -152,6 +153,14 @@ public interface PlayerCommand extends BasicCommand{
         System.out.println("Armor : "+target.getArmor());
         System.out.println("Accesories : "+target.getAccessories());
 
+        BasicCommand.pause();
+    }
+
+    static void showSkill(Player player){
+        BasicCommand.tittle("Skill");
+        System.out.println("slot 1 :"+player.getSlot1());
+        System.out.println("slot 2 :"+player.getSlot2());
+        System.out.println("slot 3 :"+player.getSlot3());
         BasicCommand.pause();
     }
 

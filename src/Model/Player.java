@@ -62,7 +62,10 @@ public class Player extends Characters {
             }
         }
     }
-    public Item getInventory(int id){ return inventory.get(id);}
+    public Item getInventory(int id){
+        return inventory.get(id);
+    }
+
     public int getInventoryQuantity(Item item){
         Item dummy = inventory.stream().
                 filter(inventory -> item.toString().equalsIgnoreCase(inventory.toString())).
@@ -87,25 +90,30 @@ public class Player extends Characters {
 
     //getter skill slot
     public Skill getSlot1() {
-        try {
-            return slot1;
-        }catch (Exception e){
-            return null;
-        }
-
+        return slot1;
     }
     public Skill getSlot2() {
-        try {
-            return slot2;
-        }catch (Exception e){
-            return null;
-        }
+        return slot2;
     }
     public Skill getSlot3() {
-        try {
-            return slot3;
-        }catch (Exception e){
-            return null;
+        return slot3;
+    }
+    public Boolean skillAlreadyLearn(Skill skill){
+        if (slot1 == skill){
+            return true;
+        } else if (slot2 == skill){
+            return true;
+        } else return slot3 == skill;
+    }
+    public String skillAlreadyLearntoString(Skill skill){
+        if (slot1 == skill){
+            return "Learned";
+        } else if (slot2 == skill){
+            return "Learned";
+        } else if(slot3 == skill){
+            return "Learned";
+        } else {
+            return "";
         }
     }
 

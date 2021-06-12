@@ -1,7 +1,7 @@
 package Controller.Commands;
 
 import Data.Item.DataEquipable;
-import Data.Item.DataSkillScroll;
+import Data.DataSkill;
 import Data.Item.DataUsable;
 import Model.Abstract.Item;
 import Model.Enum.TypeItem;
@@ -9,11 +9,12 @@ import Model.ItemType.Equipable;
 import Model.ItemType.SkillScroll;
 import Model.ItemType.Usable;
 import Model.Player;
+import Model.Skill;
 
 public interface ShopCommand extends BasicCommand{
     DataEquipable dataEquipable = new DataEquipable();
     DataUsable dataUsable = new DataUsable();
-    DataSkillScroll dataSkillScroll = new DataSkillScroll();
+    DataSkill dataSkillScroll = new DataSkill();
 
     static void shopMenu(Player target){
         boolean stop = false;
@@ -62,7 +63,7 @@ public interface ShopCommand extends BasicCommand{
 
             array.add("Equipment");
             array.add("Item");
-            array.add("Skill Scroll");
+            array.add("Learn Skill");
             BasicCommand.printMenu();
 
             int pil = BasicCommand.inputint();
@@ -82,20 +83,16 @@ public interface ShopCommand extends BasicCommand{
             BasicCommand.tittle("Skill Scroll Shop");
             System.out.println("your gold :"+target.getGold());
 
-            dataSkillScroll.getItem(target);
+            dataSkillScroll.getSkill(target);
             System.out.println("0> back");
 
             int ItemId = BasicCommand.inputint("Choose Scroll");
             if (ItemId == 0){
                 stop = true;
             } else {
-                SkillScroll item = dataSkillScroll.getItem(ItemId);
-                target.setGold(target.getGold()-item.getCost());
-                if (target.alreadyHave(item)){
-                    item.addQuantity(1);
-                } else {
-                    item.addQuantity(1);
-                    target.setInventory(item);
+                Skill skill = dataSkillScroll.getSkill(ItemId);
+                if (SkillCommand.learnSkill(target,skill)){
+                    target.setGold(target.getGold()-skill.getCost());
                 }
             }
         }

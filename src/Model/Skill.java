@@ -9,19 +9,21 @@ public class Skill extends BasicAttribute {
     private int percentagePA = 0;
     private int percentageMA = 0;
     private int manaCost = 0;
-    private boolean self;
+    private final boolean self;
+    private int cost;
     TypeAttribute attribute;
 
-    public Skill(String name, String desc, int basePA, int percentagePA) {
+    public Skill(String name, String desc, int basePA, int percentagePA, int cost) {
         this.name = name;
         this.desc = desc;
         this.basePA = basePA;
         this.percentagePA = percentagePA;
         this.attribute = TypeAttribute.physical;
         this.self = false;
+        this.cost = cost;
     }
 
-    public Skill(String name, String desc, int baseMA, int percentageMA, int manaCost) {
+    public Skill(String name, String desc, int baseMA, int percentageMA, int manaCost, int cost) {
         this.name = name;
         this.desc = desc;
         this.baseMA = baseMA;
@@ -29,9 +31,10 @@ public class Skill extends BasicAttribute {
         this.manaCost = manaCost;
         this.attribute = TypeAttribute.magic;
         this.self = false;
+        this.cost = cost;
     }
 
-    public Skill(String name, String desc, int MP, int HP,int percentageMA, int manaCost){
+    public Skill(String name, String desc, int MP, int HP,int percentageMA, int manaCost, int cost){
         this.name = name;
         this.desc = desc;
         this.MP = MP;
@@ -40,9 +43,10 @@ public class Skill extends BasicAttribute {
         this.manaCost = manaCost;
         this.attribute = TypeAttribute.buff;
         this.self = true;
+        this.cost = cost;
     }
 
-    public Skill(String name, String desc,int basePA, int percentagePA, int baseMA, int percentageMA, int manaCost) {
+    public Skill(String name, String desc,int basePA, int percentagePA, int baseMA, int percentageMA, int manaCost, int cost) {
         this.name = name;
         this.desc = desc;
         this.basePA = basePA;
@@ -52,6 +56,7 @@ public class Skill extends BasicAttribute {
         this.manaCost = manaCost;
         this.attribute = TypeAttribute.physicalAndMagic;
         this.self = false;
+        this.cost = cost;
     }
 
     @Override
@@ -78,5 +83,13 @@ public class Skill extends BasicAttribute {
     }
     public Boolean getSelf(){
         return this.self;
+    }
+    public int getCost() {
+        return cost;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
