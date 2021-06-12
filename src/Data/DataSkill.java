@@ -30,7 +30,7 @@ public class DataSkill {
         );
         DataSkill.put(4,
                 new Skill("Fire Slash",
-                        "infilct hit with fire",
+                        "inflict hit with fire to enemy",
                         100, 100, 100, 100, 100,1200)
         );
     }
