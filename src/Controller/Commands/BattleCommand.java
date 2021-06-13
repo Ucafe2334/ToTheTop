@@ -21,29 +21,29 @@ public interface BattleCommand extends PlayerCommand,BasicCommand{
 
         int Result;
 
-        System.out.println(player + " is Attacking " + enemy);
+        System.out.println(player + " menyerang " + enemy);
         if (PlayerAttack < EnemyDef && enemy.isGuard()){
-            System.out.println(enemy + " in Full Guard, Attack Has Been Deflected");
+            System.out.println(enemy + " dalam keadaan bertahan, serangan berhasil dikembalikan");
 
             Result = EnemyDef-PlayerAttack;
             player.setHP(PlayerCurrentHP - Result);
 
-            System.out.println(player + " took " + Result + "Damage");
-            System.out.println("HP Drop Become " + player.getHP() + "/" + PlayerMaxHP);
+            System.out.println(player + " terkena " + Result + " Damage");
+            System.out.println("HP menurun menjadi " + player.getHP() + "/" + PlayerMaxHP);
         } else if (PlayerAttack == EnemyDef && enemy.isGuard()){
-            System.out.println("Attack Has Been Guarded/nNo One Take Damage");
+            System.out.println("serangan berhasil digagalkan");
         }else{
             Result = PlayerAttack-EnemyDef;
             enemy.setHP(EnemyCurrentHP - Result);
 
-            System.out.println(enemy + " took " + Result + " Damage");
-            System.out.println(("HP Drop Become " + enemy.getHP() + "/" + EnemyTotalHP));
+            System.out.println(enemy + " terkena " + Result + " Damage");
+            System.out.println(("HP menurun menjadi " + enemy.getHP() + "/" + EnemyTotalHP));
         }
     }
 
     static void guard (Characters player){
         player.setGuard(true);
-        System.out.println(player + " Ready To Guard Next Attack");
+        System.out.println(player + " bersiap untuk menangkis serangan");
     }
 
     static void skip(Characters player){
@@ -55,17 +55,17 @@ public interface BattleCommand extends PlayerCommand,BasicCommand{
 
         if (PlayerCurrentHP < PlayerMaxHP){
             player.setHP(PlayerCurrentHP + Result);
-            System.out.println(player + " Recovery " + Result + " HP");
-            System.out.println("HP recovered become " + PlayerCurrentHP + "/" + PlayerMaxHP);
+            System.out.println(player + " memulihkan " + Result + " HP");
+            System.out.println("HP berhasil dipulihkan menjadi " + PlayerCurrentHP + "/" + PlayerMaxHP);
         } else {
-            System.out.println(player + " Just Took Some Rest");
+            System.out.println(player + " tidak melakukan apapun");
         }
     }
 
     static void useItem(Player player){
         player.getInventory(TypeItem.UsableItem);
 
-        int selected = BasicCommand.inputint("Choose Item");
+        int selected = BasicCommand.inputint("Pilih Item");
         Item item = player.getInventory(selected-1);
         PlayerCommand.usingItem(player,item);
         if (item.getQuantity() > 1){
@@ -79,19 +79,22 @@ public interface BattleCommand extends PlayerCommand,BasicCommand{
     static void useSkill(Player player, Enemy enemy){
         PlayerCommand.showSkill(player);
 
-        int selected = BasicCommand.inputint("select slot to use");
+        int selected = BasicCommand.inputint("pilih skill yang ingin digunakan");
         Skill dummy = SkillCommand.skillSelected(player,selected);
         if (dummy != null){
-            System.out.println(dummy);
-            SkillCommand.skillUse(player,enemy,dummy);
+            if (dummy.getManaCost() < player.getMP()){
+                SkillCommand.skillUse(player,enemy,dummy);
+            }else {
+                System.out.println("MP kurang untuk melakukan skill");
+            }
         } else {
-            System.out.println("Skill not found");
-            System.out.println("You skip your turn");
+            System.out.println("skill tidak ditemukan");
+            System.out.println("giliranmu dilewat");
         }
     }
 
     static void showstatus(Characters player){
-        System.out.println(player + " Current Turn");
+        System.out.println("giliran " + player);
         System.out.println("HP         : " + player.getHP() + "/" + player.getMaxHP());
         System.out.println("MP         : " + player.getMP() + "/" + player.getMaxMP());
     }

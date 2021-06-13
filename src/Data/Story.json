@@ -1,0 +1,154 @@
+{
+  "0": [
+    {
+      "nama": "",
+      "dialog": "Seorang pengelana sedang berjalan menuju sebuah kota"
+    },
+    {
+      "nama": "",
+      "dialog": "sesampainya di depan gerbang, ia dihentikan oleh penjaga kota tersebut"
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog":"Selamat Datang, bisa kau tunjukan identitasmu?"
+    },
+    {
+      "nama": "",
+      "dialog": "Penjaga kota sedang memeriksa identutasmu"
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog": "hmm... kelihatannya semuanya oke, jadi apa tujuannmu ke kota ini?"
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog": "ah.. ikut turnamen itu ya? ya, belakangan ini sedang ramai ramainnya \norang orang ke sini mengikuti turnamen itu"
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog": "ya, siapa yang tidak tertarik dengan turnamen itu, jika kau menang \nkau akan langsung diangkat sebagai kesatria kerajaan\nah tentu saja, kau juga mau kan?"
+    },
+    {
+      "nama": "",
+      "dialog": "mengangguk setuju"
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog": "hahahha!! aku doakan yang terbaik untukmu, \ntapi berhati hatilah, peserta kali ini cukup kuat\nmereka semua adalah para pengembara terbaik dikota mereka"
+    },
+    {
+      "nama": "",
+      "dialog": "Gulp.."
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog": "hahahaha... aku bukan mau menakut nakutimu, tapi semangatlah!!"
+    },
+    {
+      "nama": "Penjaga Kota",
+      "dialog": "kau pasti bisa bertambah kuat dengan cepat,\n jika kau lurus terus ke sana tepat di samping lapangan pertandingan\nkau akan menemukan toko rahasia yang menjual barang barang hebat\nakan tetapi harganya sangat mahal, jadi siapkan kantungmu hahahahha!!"
+    },
+    {
+      "nama": "",
+      "dialog": "kemudian pengelana itu masuk ke dalam kota"
+    },
+    {
+      "nama": "",
+      "dialog": "tak beberapa lama kemudian, dia berada di colosium tempat pertandingan itu digelar"
+    },
+    {
+      "nama": "",
+      "dialog": "tepat di depannya, ada stand pendaftaran, lalu pengelana itu mulai mendekati tempat itu"
+    },
+    {
+      "nama": "Resepsionis",
+      "dialog": "halo selamat datang, apa anda ingin mendaftar di turnamen kali ini?"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana tersebut mengangguk setuju"
+    },
+    {
+      "nama": "Resepsionis",
+      "dialog": "kalau begitu silakan isi formulirnya,"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana tersebut mengisi formulir pendaftarannya"
+    },
+    {
+      "nama": "",
+      "dialog": "kemudian, ia selesai mengisi formulirnya"
+    },
+    {
+      "nama": "Resepsionis",
+      "dialog": "biaya pendaftarannya 1000 coin"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana tersebut langsung membayar uang pendaftaran"
+    },
+    {
+      "nama": "Resepsionis",
+      "dialog": "terima kasih telah mendaftar, pertandingan akan dimulai tepat jam 1 siang ini, jadi jangan sampai terlambat"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana tersebut mengangguk mengerti"
+    },
+    {
+      "nama": "",
+      "dialog": "kemudian pengelana itu pergi sambil menunggu turnamen dimulai"
+    }
+  ],
+  "1": [
+    {
+      "nama": "Kancil",
+      "dialog": "aku tidak takut padamu, jadi bersiaplah untuk kalah"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana itu menarik nafas, kemudian memasang kuda kudanya"
+    }
+  ],
+  "2": [
+    {
+      "nama": "Buto Ijo",
+      "dialog": "Buto ijo sangat marah!!! dia merasa dihina karna harus melawan orang lemah"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana itu merasa tersinggung"
+    },
+    {
+      "nama": "Buto Ijo",
+      "dialog": "Buto ijo akan mengalahkanmu dengan cepat"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana itu menarik nafas, kemudian memasang kuda kudanya"
+    }
+  ],
+  "3": [
+    {
+      "nama": "Pemburu Handal",
+      "dialog": "huh? hebat juga bisa sampai di sini,"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana itu merasa senang dan bangga di puji"
+    },
+    {
+      "nama": "Pemburu Handal",
+      "dialog": "itu bukan pujian, dasar orang desa!!"
+    },
+    {
+      "nama": "",
+      "dialog": "pengelana itu merasa tersinggung"
+    },
+    {
+      "nama": "Pemburu Handal",
+      "dialog": "kau akan kalah ditanganku!! ta akan aku biarkan kamu memang!!"
+    }
+  ]
+}

@@ -16,7 +16,7 @@ public interface BasicCommand {
     }
 
     static int inputint() {
-        System.out.println("Select One : ");
+        System.out.println("pilihan : ");
         return sc.nextInt();
     }
 
@@ -26,7 +26,7 @@ public interface BasicCommand {
     }
 
     static String inputString() {
-        System.out.println("Answer : ");
+        System.out.println("Jawaban : ");
         return sc.next();
     }
 
@@ -37,7 +37,18 @@ public interface BasicCommand {
             i++;
             System.out.println(i + ") " + data);
         }
-        System.out.println("0) Back");
+        System.out.println("0) Kembali");
+        array.clear();
+    }
+
+    static void menuUtama() {
+        int i = 0;
+        System.out.println("Menu");
+        for (String data : array) {
+            i++;
+            System.out.println(i + ") " + data);
+        }
+        System.out.println("0) Keluar");
         array.clear();
     }
 
@@ -48,12 +59,12 @@ public interface BasicCommand {
             i++;
             System.out.println(i + ") " + data);
         }
-        System.out.println("0) Back");
+        System.out.println("0) Kembali");
         array.clear();
     }
 
     static void pause() {
-        System.out.println("Press Any Key To Continue...");
+        System.out.println("tekan enter untuk melanjutkan...");
         new java.util.Scanner(System.in).nextLine();
     }
 
@@ -74,11 +85,15 @@ public interface BasicCommand {
     }
 
     static void nextTurn(){
-        System.out.println("-----------------NEXT TURN---------------");
+        System.out.println("----------------- Giliran Selanjutnya ---------------");
     }
 
     static void npcTalk(String name, String words){
-        System.out.println(name);
+        if (!name.isBlank()){
+            System.out.println("----------");
+            System.out.println(name);
+            System.out.println("----------");
+        }
         System.out.println(words);
         pauseE();
     }

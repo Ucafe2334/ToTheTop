@@ -19,24 +19,23 @@ public interface ShopCommand extends BasicCommand{
     static void shopMenu(Player target){
         boolean stop = false;
         while (!stop){
-            BasicCommand.tittle("Shop Menu");
-            System.out.println("your gold :"+target.getGold());
+            BasicCommand.tittle("Menu Toko");
+            System.out.println("uang :"+target.getGold() + " coin");
 
-            array.add("Buy");
-            array.add("Sell");
-            array.add("Enchant (under construction)");
-            array.add("Player Item");
-            array.add("Player Equipment");
+            array.add("Beli");
+            array.add("Jual");
+            array.add("Tas");
+            array.add("Status");
             BasicCommand.printMenu();
 
             int pil = BasicCommand.inputint();
             switch (pil){
                 case 1 -> buyMenu(target);
                 case 2 -> sellMenu(target);
-                case 4 -> {
-                    BasicCommand.tittle("Your Inventory");
+                case 3 -> {
+                    BasicCommand.tittle("Tas");
                     if (target.getInvetoryList().isEmpty()){
-                        System.out.println("Empty");
+                        System.out.println("Kosong");
                         BasicCommand.pauseE();
                     } else {
                         BasicCommand.printMenu(target.getInvetoryList());
@@ -48,7 +47,7 @@ public interface ShopCommand extends BasicCommand{
                         }
                     }
                 }
-                case 5 -> PlayerCommand.showEquipment(target);
+                case 4 -> PlayerCommand.showEquipment(target);
                 default -> stop = true;
             }
         }
@@ -58,12 +57,11 @@ public interface ShopCommand extends BasicCommand{
     static void buyMenu(Player target){
         boolean stop = false;
         while (!stop){
-            BasicCommand.tittle("Buying Menu");
-            System.out.println("your gold :"+target.getGold());
+            BasicCommand.tittle("Item di Toko");
 
-            array.add("Equipment");
-            array.add("Item");
-            array.add("Learn Skill");
+            array.add("Perlengkapan");
+            array.add("Ramuan");
+            array.add("Belajar Skill");
             BasicCommand.printMenu();
 
             int pil = BasicCommand.inputint();
@@ -80,18 +78,20 @@ public interface ShopCommand extends BasicCommand{
     static void skillMenu(Player target){
         boolean stop = false;
         while (!stop){
-            BasicCommand.tittle("Skill Scroll Shop");
-            System.out.println("your gold :"+target.getGold());
+            BasicCommand.tittle("Gulungan Skill");
 
             dataSkillScroll.getSkill(target);
             System.out.println("0> back");
 
+            System.out.println("uang :"+target.getGold() + " coin");
             int ItemId = BasicCommand.inputint("Choose Scroll");
             if (ItemId == 0){
                 stop = true;
             } else {
                 Skill skill = dataSkillScroll.getSkill(ItemId);
-                if (SkillCommand.learnSkill(target,skill)){
+                if (target.getGold() < skill.getCost()){
+                    System.out.println("maaf uangmu tidak cukup");
+                }else if (SkillCommand.learnSkill(target,skill)){
                     target.setGold(target.getGold()-skill.getCost());
                 }
             }
@@ -101,26 +101,28 @@ public interface ShopCommand extends BasicCommand{
     static void equipmentMenu(Player target){
         boolean stop = false;
         while (!stop){
-            BasicCommand.tittle("Equipment Shop");
-            System.out.println("your gold :"+target.getGold());
+            BasicCommand.tittle("Perlengkapan");
 
             dataEquipable.getItem(target);
-            System.out.println("0> back");
+            System.out.println("0> kembali");
 
-            int equipId = BasicCommand.inputint("Choose Equipment");
+            System.out.println("uang :"+target.getGold() + " coin");
+            int equipId = BasicCommand.inputint("Perlengkapan yang dipilih");
             if (equipId == 0){
                 stop = true;
-            } else {
+            }else {
                 Equipable item = dataEquipable.getItem(equipId);
-                target.setGold(target.getGold()-item.getCost());
 
-                if (!PlayerCommand.alreadyEquip(item.equipType, target)) {
-                    System.out.println(PlayerCommand.alreadyEquip(item, target));
-                    PlayerCommand.equip(item, target);
-                }
-                if (target.alreadyHave(item)){
+                if (target.getGold() < item.getCost()){
+                    System.out.println("maaf uangmu tidak cukup");
+                }else if (target.alreadyHave(item)){
+                    if (!PlayerCommand.alreadyEquip(item.equipType, target)) {
+                        PlayerCommand.equip(item, target);
+                    }
+                    target.setGold(target.getGold()-item.getCost());
                     item.addQuantity(1);
                 } else {
+                    target.setGold(target.getGold()-item.getCost());
                     item.addQuantity(1);
                     target.setInventory(item);
                 }
@@ -131,24 +133,28 @@ public interface ShopCommand extends BasicCommand{
     static void itemMenu(Player target){
         boolean stop = false;
         while (!stop){
-            BasicCommand.tittle("Item Shop");
-            System.out.println("your gold :"+target.getGold());
+            BasicCommand.tittle("Ramuan");
 
             dataUsable.getItem(target);
             System.out.println("0> back");
 
-            int ItemId = BasicCommand.inputint("Choose Item");
+            System.out.println("uang :"+target.getGold() + " coin");
+            int ItemId = BasicCommand.inputint("pilih ramuan");
             if (ItemId == 0){
                 stop = true;
             } else {
                 Usable item = dataUsable.getItem(ItemId);
-                target.setGold(target.getGold()-item.getCost());
-                if (target.alreadyHave(item)){
+                if (target.getGold() < item.getCost()){
+                    System.out.println("maaf uangmu tidak cukup");
+                }else if (target.alreadyHave(item)){
+                    target.setGold(target.getGold()-item.getCost());
                     item.addQuantity(1);
                 } else {
+                    target.setGold(target.getGold()-item.getCost());
                     item.addQuantity(1);
                     target.setInventory(item);
                 }
+
             }
         }
     }
@@ -157,21 +163,21 @@ public interface ShopCommand extends BasicCommand{
 
         boolean stop = false;
         while (!stop){
-            BasicCommand.tittle("Sell Menu");
-            System.out.println("your gold :"+target.getGold());
+            BasicCommand.tittle("Jual Barang");
+            System.out.println("uang :"+target.getGold() + " coin");
 
             target.getInventory();
-            System.out.println("0) back");
-            int selected = BasicCommand.inputint("Choose Item");
+            System.out.println("0) kembali");
+            int selected = BasicCommand.inputint("Pilih barang yang ingin dijual");
             selected --;
             if (selected != -1) {
                 if (target.getInventory(selected) == null){
-                    System.out.println("There is no item who have that id");
+                    System.out.println("barang yang dipilih tidak ditemukan");
                 }else {
                     boolean a = false;
                     while (!a) {
                         Item item = target.getInventory(selected);
-                        String builder = "How Much (max :" + item.getQuantity() + ")";
+                        String builder = "Berapa banyak (Maksimal :" + item.getQuantity() + ")";
                         int quantity = BasicCommand.inputint(builder);
 
                         if (item.getQuantity() == quantity) {
@@ -182,14 +188,14 @@ public interface ShopCommand extends BasicCommand{
                             target.setGold(target.getGold() + (item.getSell() * quantity));
                             a = true;
                         } else if (item.getQuantity() < quantity) {
-                            System.out.println("you don't even have that much");
+                            System.out.println("kamu ga punya sebanyak itu");
                         } else if (quantity > 0) {
                             item.removeSome(quantity);
                             target.replaceInventory(selected, item);
                             target.setGold(target.getGold() + (item.getSell() * quantity));
                             a = true;
                         } else {
-                            System.out.println("please input the right number");
+                            System.out.println("tolong masukan angka yang benar");
                         }
                     }
                 }

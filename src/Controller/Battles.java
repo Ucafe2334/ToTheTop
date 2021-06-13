@@ -2,6 +2,7 @@ package Controller;
 
 import Controller.Commands.BasicCommand;
 import Controller.Commands.BattleCommand;
+import Controller.Commands.SkillCommand;
 import Model.Abstract.Characters;
 import Model.Enemy;
 import Model.Enum.TypeAttribute;
@@ -15,9 +16,8 @@ public class Battles implements BasicCommand {
 
     public static void Battle (Player player, Enemy enemy){
         BattleCommand.showstatus(player);
-        System.out.println("What Will You Do?");
-        System.out.println("1. Attack 2. Guard 3. UseItem 4.Skill 5.Skip Turn");
-        System.out.println("Your Action : ");
+        System.out.println("Apa yang ingin kamu lakukan?");
+        System.out.println("1. Serang 2. Bertahan 3. gunakan Item 4.Skill 5.lewati giliran");
 
         try {
             int ch = BasicCommand.inputint();
@@ -27,7 +27,7 @@ public class Battles implements BasicCommand {
                 case 3-> BattleCommand.useItem(player);
                 case 4-> BattleCommand.useSkill(player,enemy);
                 case 5 -> BattleCommand.skip(player);
-                default-> System.out.println("error");
+                default-> System.out.println("aksi tidak diketahui, giliran dilewati");
             }
 
             EndGame = enemy.isDead();
@@ -38,7 +38,6 @@ public class Battles implements BasicCommand {
 
     public static void battleAi (Enemy ai, Player target){
         try {
-            BasicCommand.tittle("Next Turn");
             BattleCommand.showstatus(ai);
             Random random = new Random();
             int ch;
@@ -58,9 +57,10 @@ public class Battles implements BasicCommand {
 
             switch (ch){
                 case 1-> BattleCommand.attack(ai, target);
-                case 2-> BattleCommand.guard(ai);
-                case 3-> BattleCommand.skip(ai);
-                default-> System.out.println("error");
+                case 2-> SkillCommand.skillUse(ai,target,ai.getSkill());
+                case 3-> BattleCommand.guard(ai);
+                case 4-> BattleCommand.skip(ai);
+                default-> System.out.println("aksi dilewati, giliran dilewati");
             }
             EndGame = target.isDead();
         }catch (Exception e){
@@ -68,14 +68,13 @@ public class Battles implements BasicCommand {
         }
     }
 
-    public static void NewGame (Player player, Enemy Ai){
+    public static Boolean NewGame (Player player, Enemy Ai){
         Characters CurrentTurn = player;
         while (!EndGame){
             if (turn == 1){
                 CurrentTurn = player;
                 Battle(player, Ai);
                 turn = 2;
-                BasicCommand.nextTurn();
                 BasicCommand.pause();
             }else {
                 CurrentTurn = Ai;
@@ -85,8 +84,10 @@ public class Battles implements BasicCommand {
                 BasicCommand.pause();
             }
         }
-        BasicCommand.tittle("Battle End\nResult");
-        System.out.println(CurrentTurn + " is The Winner!!!");
+        BasicCommand.tittle("Pertarungan berakhir\nHasilnya adalah");
+        System.out.println(CurrentTurn + " adalah pemenang!!!");
+        EndGame = false;
+        return CurrentTurn == player;
     }
 
 }

@@ -20,7 +20,7 @@ public interface PlayerCommand extends BasicCommand{
         }else if (type == TypeEquip.SECONDARY_WEAPONS){
             target.setSecondaryWeapons(item);
         } else {
-            System.out.println("not equipped");
+            System.out.println("tidak dipakai");
         }
 
         target.setMaxHP(target.getMaxHP()+item.getHP());
@@ -46,7 +46,7 @@ public interface PlayerCommand extends BasicCommand{
         }else if (type == TypeEquip.SECONDARY_WEAPONS){
             target.setSecondaryWeapons(null);
         } else {
-            System.out.println("it's still equipped");
+            System.out.println("masih tetap dipakai");
         }
 
         target.setMaxHP(target.getMaxHP()-item.getHP());
@@ -76,7 +76,7 @@ public interface PlayerCommand extends BasicCommand{
             target.setSecondaryWeapons(null);
         } else {
             item = new Equipable("","",0,0,0,0,0,0,null,0);
-            System.out.println("it's still equipped");
+            System.out.println("masih tetap dipakai");
         }
 
         target.setMaxHP(target.getMaxHP()-item.getHP());
@@ -91,21 +91,21 @@ public interface PlayerCommand extends BasicCommand{
     }
 
     static void usingItem(Player player, Item usable){
-        System.out.println("Using Item "+usable);
+        System.out.println("menggunakan item "+usable);
 
         if (usable.getHP() > 0){
             player.setHP(player.getHP()+usable.getHP());
             if (player.getMaxHP() < player.getHP()){
                 player.setHP(player.getMaxHP());
             }
-            System.out.println(player+" recovery "+usable.getHP()+"HP");
+            System.out.println(player+" memulihkan "+usable.getHP()+"HP");
         }
         if (usable.getMP() > 0){
             player.setMP(player.getMP()+ usable.getMP());
             if (player.getMaxMP() < player.getMP()){
                 player.setMP(player.getMaxMP());
             }
-            System.out.println(player+ " recovery "+usable.getMP()+"MP");
+            System.out.println(player+ " memulihkan "+usable.getMP()+"MP");
         }
     }
 
@@ -132,9 +132,9 @@ public interface PlayerCommand extends BasicCommand{
     }
 
     static void showStatus(Player target){
-        BasicCommand.tittle("Player Status");
+        BasicCommand.tittle("Status Player");
 
-        System.out.println("Name\t: " + target);
+        System.out.println("nama\t: " + target);
         System.out.println("HP\t: " + target.getHP() + "/" + target.getMaxHP());
         System.out.println("MP\t: " + target.getMP() + "/" + target.getMaxMP());
         System.out.println("PA/MA/DEF/SPD");
@@ -146,12 +146,12 @@ public interface PlayerCommand extends BasicCommand{
     static void showEquipment(Player target){
         showStatus(target);
         showSkill(target);
-        BasicCommand.tittle("Equipment");
+        BasicCommand.tittle("Perlengkapan");
 
-        System.out.println("Main Weapons : "+target.getWeapons());
-        System.out.println("Secondary Weapon : "+target.getSecondaryWeapons());
-        System.out.println("Armor : "+target.getArmor());
-        System.out.println("Accesories : "+target.getAccessories());
+        System.out.println("Senjata Utama : "+target.getWeapons());
+        System.out.println("Senjata Cadangan : "+target.getSecondaryWeapons());
+        System.out.println("Pelindung Tubuh : "+target.getArmor());
+        System.out.println("Asesoris : "+target.getAccessories());
 
         BasicCommand.pause();
     }
@@ -172,36 +172,36 @@ public interface PlayerCommand extends BasicCommand{
             System.out.println(item.getHP()+"/"+item.getMP()+"/"+item.getPA() + "/" + item.getMA() + "/" + item.getDef() + "/" + item.getSpeed());
         }
         System.out.println(item.getDesc()+"\n");
-        array.add("Drop All");
+        array.add("buang semua");
         if (item.getTypeI() == TypeItem.EquipableItem){
             if (alreadyEquip((Equipable) item,target)){
-                array.add("Unequip");
+                array.add("tanggalkan perlengkapan");
             }else {
-                array.add("Equip");
+                array.add("pakai perlengkapan");
             }
         } else if (item.getTypeI() == TypeItem.UsableItem){
-            array.add("Use");
+            array.add("gunakan");
         }
         BasicCommand.printMenu();
-        int sel = BasicCommand.inputint("Select One");
+        int sel = BasicCommand.inputint("pilih salah satu");
         if (sel == 1){
             if (alreadyEquip((Equipable) item,target)) {
                 unequipped((Equipable) item, target);
-                BasicCommand.subtittle("Unequipping Item");
+                BasicCommand.subtittle("menanggalkan perlengkapan");
             }
             target.removeItem(id);
         } else if (sel == 2){
             if (item.getTypeI() == TypeItem.EquipableItem){
                 if (alreadyEquip((Equipable) item,target)){
                     unequipped((Equipable) item,target);
-                    BasicCommand.subtittle("Unequipping Item");
+                    BasicCommand.subtittle("menanggalkan perlengkapan");
                 } else {
                     if (alreadyEquip(((Equipable) item).equipType,target)){
                         unequipped(((Equipable) item).equipType,target);
-                        BasicCommand.subtittle("Unequipping Item");
+                        BasicCommand.subtittle("menanggalkan perlangkapan");
                     }
                     equip((Equipable) item, target);
-                    BasicCommand.subtittle("equipping Item");
+                    BasicCommand.subtittle("memakai perlengkapan");
                 }
             } else if (item.getTypeI() == TypeItem.UsableItem){
                 usingItem(target,item);
