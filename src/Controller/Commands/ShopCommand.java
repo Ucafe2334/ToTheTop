@@ -103,7 +103,6 @@ public interface ShopCommand extends BasicCommand{
         boolean stop = false;
         while (!stop){
             BasicCommand.tittle("Perlengkapan");
-            BasicCommand.tittle("Item di Toko");
 
             array.add("Senjata Utama");
             array.add("Senjata Cadangan");
@@ -111,7 +110,7 @@ public interface ShopCommand extends BasicCommand{
             BasicCommand.printMenu();
 
             int pil = BasicCommand.inputint();
-            BasicCommand.tittle("Rak Perlengkapan");
+            BasicCommand.tittle("");
             switch (pil){
                 case 1 -> dataEquipable.getItem(target, TypeEquip.WEAPONS);
                 case 2 -> dataEquipable.getItem(target, TypeEquip.SECONDARY_WEAPONS);
@@ -119,29 +118,35 @@ public interface ShopCommand extends BasicCommand{
                 default -> stop = true;
             }
 
-            System.out.println("0> kembali");
+            if (!stop){
+                System.out.println("0> kembali");
 
-            System.out.println("uang :"+target.getGold() + " coin");
-            int equipId = BasicCommand.inputint("Perlengkapan yang dipilih");
-            if (equipId == 0){
-                stop = true;
-            }else {
-                Equipable item = dataEquipable.getItem(equipId);
+                System.out.println("uang :"+target.getGold() + " coin");
+                int equipId = BasicCommand.inputint("Perlengkapan yang dipilih");
+                if (equipId == 0){
+                    stop = true;
+                }else {
+                    Equipable item = dataEquipable.getItem(equipId);
 
-                if (target.getGold() < item.getCost()){
-                    System.out.println("maaf uangmu tidak cukup");
-                }else if (target.alreadyHave(item)){
-                    if (!PlayerCommand.alreadyEquip(item.equipType, target)) {
-                        PlayerCommand.equip(item, target);
+                    if (target.getGold() < item.getCost()){
+                        System.out.println("maaf uangmu tidak cukup");
+                    }else if (target.alreadyHave(item)){
+                        if (!PlayerCommand.alreadyEquip(item.equipType, target)) {
+                            PlayerCommand.equip(item, target);
+                        }
+                        target.setGold(target.getGold()-item.getCost());
+                        item.addQuantity(1);
+                    } else {
+                        target.setGold(target.getGold()-item.getCost());
+                        item.addQuantity(1);
+                        target.setInventory(item);
+                        if (!PlayerCommand.alreadyEquip(item.equipType, target)) {
+                            PlayerCommand.equip(item, target);
+                        }
                     }
-                    target.setGold(target.getGold()-item.getCost());
-                    item.addQuantity(1);
-                } else {
-                    target.setGold(target.getGold()-item.getCost());
-                    item.addQuantity(1);
-                    target.setInventory(item);
                 }
             }
+
         }
     }
 

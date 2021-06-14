@@ -20,11 +20,11 @@ public interface SkillCommand {
         int healHP = 0;
         int healMP = 0;
         if (skill.getHP() != 0){
-            healHP = skill.getHP()+(self.getMA()+skill.getPercentageMA());
+            healHP = skill.getHP()+(self.getMA()*skill.getPercentageMA()/100);
             System.out.println(self+" memulihkan "+healHP+" HP");
         }
         if (skill.getMP() != 0) {
-            healMP = skill.getMP() + (self.getMA() + skill.getPercentageMA());
+            healMP = skill.getMP() + (self.getMA()*skill.getPercentageMA()/100);
             self.setHP(self.getHP());
             System.out.println(self+" memulihkan "+healHP+" MP");
         }

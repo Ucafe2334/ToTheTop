@@ -55,7 +55,18 @@ public class Engine implements BasicCommand {
         BasicCommand.menuUtama();
         int pil = BasicCommand.inputint();
         switch (pil){
-            case 0 -> mainMenu();
+            case 0 -> {
+                BasicCommand.tittle("Keluar Permainan");
+                String jawban = BasicCommand.inputString("apa anda yakin (y/n)");
+                if (jawban.equalsIgnoreCase("y")){
+                    mainMenu();
+                } else if (jawban.equalsIgnoreCase("n")){
+                    menu(sp);
+                } else {
+                    System.out.println("System anggap itu sebagai tidak");
+                    menu(sp);
+                }
+            }
             case 1 -> colosium(sp);
             case 2 -> {
                 BasicCommand.tittle("Toko");

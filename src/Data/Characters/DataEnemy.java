@@ -21,10 +21,10 @@ public class DataEnemy extends DataCharacters {
                         500,100,0)));
         this.DataChar.put(3, new Enemy("Pemburu Handal",
                 "seorang pemburu yang sangat disegani oleh siapapun, tahun lalu dia hampir saja mena\nakan tetapi dikalahkan saat babak final",
-                8000,1500,100,200,50,80,
+                8000,1500,400,300,400,300,
                 new Skill("Penetrate Shot",
                         "",
-                        300,200,100,0)));
+                        300,100,400,0)));
     }
 
     @Override
