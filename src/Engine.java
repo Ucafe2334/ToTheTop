@@ -3,6 +3,7 @@ import Controller.Commands.BasicCommand;
 import Controller.Commands.PlayerCommand;
 import Controller.Commands.ShopCommand;
 import Data.Characters.DataEnemy;
+import Data.Characters.DataMob;
 import Data.Characters.DataPlayer;
 import Model.Enemy;
 import Model.Player;
@@ -14,7 +15,7 @@ import java.util.Random;
 
 public class Engine implements BasicCommand {
     //Menu Utama
-    static void mainMenu() throws IOException, ParseException {
+    static private void mainMenu() throws IOException, ParseException {
         BasicCommand.tittle("To The Top");
         array.add("Mulai");
         BasicCommand.menuUtama();
@@ -25,7 +26,7 @@ public class Engine implements BasicCommand {
         }
     }
 
-    static void newGame() throws IOException, ParseException {
+    static private void newGame() throws IOException, ParseException {
         //memilih ras
         BasicCommand.tittle("Silakan Pilih Ras yang diinginkan");
         DataPlayer dataPlayer = new DataPlayer();
@@ -45,11 +46,12 @@ public class Engine implements BasicCommand {
         menu(sp);
     }
 
-    static void menu(StoryProgress sp) throws IOException, ParseException {
+    static private void menu(StoryProgress sp) throws IOException, ParseException {
         BasicCommand.tittle("Mau Pergi Kemana?");
-
+        System.out.println("Uangmu sekarang : "+sp.getPlayer().getGold()+" coin");
         array.add("Pergi ke colosium");
         array.add("Pergi ke toko");
+        array.add("pergi ke dungeon");
         BasicCommand.menuUtama();
         int pil = BasicCommand.inputint();
         switch (pil){
@@ -61,11 +63,46 @@ public class Engine implements BasicCommand {
                 ShopCommand.shopMenu(sp.getPlayer());
                 menu(sp);
             }
+            case 3 -> dungeon(sp);
             default -> menu(sp);
         }
     }
 
-    static void colosium(StoryProgress sp) throws IOException, ParseException {
+    static private void dungeon(StoryProgress sp) throws IOException, ParseException {
+        BasicCommand.tittle("Dungeon");
+        Player player = sp.getPlayer();
+
+        DataMob dataMob = new DataMob();
+        Random random = new Random();
+        int ch;
+        if(sp.getStory() == 1){
+            ch = random.nextInt(2-1)+1;
+        } else if (sp.getStory() == 2){
+            ch = random.nextInt(4-1)+1;
+        } else if (sp.getStory() == 3){
+            ch = random.nextInt(6-1)+1;
+        } else {
+            ch = random.nextInt(6-1)+1;
+        }
+        Enemy ai = dataMob.getChar(ch);
+
+        BasicCommand.npcTalk("","pengelana itu pergi ke dungeon untuk berburu");
+        BasicCommand.npcTalk("","tiba tiba saja "+ai.getDesc()+" datang dan menyerang");
+        BasicCommand.tittle("Pertarungan dimulai");
+        boolean result = Battles.NewGame(player, ai);
+        if(result){
+            int getGold = ai.getDropGold();
+            sp.getPlayer().setGold(sp.getPlayer().getGold() + getGold);
+            sp.backFromDungeon();
+        }else {
+            sp.deadInDungeon();
+        }
+        sp.getPlayer().setHP(sp.getPlayer().getMaxHP());
+        sp.getPlayer().setMP(sp.getPlayer().getMaxMP());
+        menu(sp);
+    }
+
+    static private void colosium(StoryProgress sp) throws IOException, ParseException {
         BasicCommand.tittle("Colosium");
         Player player = sp.getPlayer();
 
@@ -75,7 +112,9 @@ public class Engine implements BasicCommand {
         BasicCommand.npcTalk("Pembawa Acara",
                 "disebelah kiri kita ada pendatang baru dari jauh, dia adalah "+player);
         BasicCommand.npcTalk("Pembawa Acara",
-                "di sisi sebelah kanan, adalah penatang kita, dia adalah "+ai);
+                "di sisi sebelah kanan, adalah penatang kita, dia adalah "+ai.getDesc());
+        BasicCommand.npcTalk("Pembawa Acara",
+                "orang orang sering menyebutnya "+ai);
         sp.generateStory(sp.getStory());
         BasicCommand.npcTalk("Pembawa Acara","tanpa banyak basa basi, mari kita mulai pertarungannya");
         BasicCommand.tittle("Pertarungan dimulai");

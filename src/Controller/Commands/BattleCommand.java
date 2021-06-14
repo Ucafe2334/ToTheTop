@@ -32,6 +32,8 @@ public interface BattleCommand extends PlayerCommand,BasicCommand{
             System.out.println("HP menurun menjadi " + player.getHP() + "/" + PlayerMaxHP);
         } else if (PlayerAttack == EnemyDef && enemy.isGuard()){
             System.out.println("serangan berhasil digagalkan");
+        }else if (PlayerAttack <= EnemyDef){
+            System.out.println("serangan tidak berpengaruh");
         }else{
             Result = PlayerAttack-EnemyDef;
             enemy.setHP(EnemyCurrentHP - Result);

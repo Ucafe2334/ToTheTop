@@ -70,6 +70,22 @@ public class StoryProgress {
         BasicCommand.tittle("GAMEOVER");
     }
 
+    public void backFromDungeon(){
+        BasicCommand.npcTalk("",
+                "pengelana itu akhirnya kembali ke kota");
+        BasicCommand.tittle("Kota Ugh");
+    }
+
+    public void deadInDungeon(){
+        BasicCommand.npcTalk("",
+                "pengelana itu tidak sadarkan diri, setelah kalah dari monster");
+        BasicCommand.npcTalk("",
+                "penjaga menemukannya dan membawanya ke kota");
+        BasicCommand.tittle("Kota Ugh");
+        BasicCommand.npcTalk("",
+                "pengelana itu sadarkan diri setelah menerima pengobatan, sekarang dia pergi dari penginapan");
+    }
+
     public Player getPlayer() {
         return player;
     }

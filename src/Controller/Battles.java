@@ -68,6 +68,25 @@ public class Battles implements BasicCommand {
         }
     }
 
+    public static void battleMob (Enemy ai, Player target){
+        try {
+            BattleCommand.showstatus(ai);
+            Random random = new Random();
+            int ch;
+            ch = random.nextInt(3-1)+1;
+
+            switch (ch){
+                case 1-> BattleCommand.attack(ai, target);
+                case 2-> BattleCommand.guard(ai);
+                case 3-> BattleCommand.skip(ai);
+                default-> System.out.println("aksi dilewati, giliran dilewati");
+            }
+            EndGame = target.isDead();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
     public static Boolean NewGame (Player player, Enemy Ai){
         Characters CurrentTurn = player;
         while (!EndGame){
@@ -78,7 +97,11 @@ public class Battles implements BasicCommand {
                 BasicCommand.pause();
             }else {
                 CurrentTurn = Ai;
-                battleAi(Ai, player);
+                if (Ai.getSkill() == null){
+                    battleMob(Ai,player);
+                } else {
+                    battleAi(Ai, player);
+                }
                 turn = 1;
                 BasicCommand.nextTurn();
                 BasicCommand.pause();

@@ -4,6 +4,7 @@ import Data.Item.DataEquipable;
 import Data.DataSkill;
 import Data.Item.DataUsable;
 import Model.Abstract.Item;
+import Model.Enum.TypeEquip;
 import Model.Enum.TypeItem;
 import Model.ItemType.Equipable;
 import Model.ItemType.SkillScroll;
@@ -102,8 +103,22 @@ public interface ShopCommand extends BasicCommand{
         boolean stop = false;
         while (!stop){
             BasicCommand.tittle("Perlengkapan");
+            BasicCommand.tittle("Item di Toko");
 
-            dataEquipable.getItem(target);
+            array.add("Senjata Utama");
+            array.add("Senjata Cadangan");
+            array.add("Pelindung Tubuh");
+            BasicCommand.printMenu();
+
+            int pil = BasicCommand.inputint();
+            BasicCommand.tittle("Rak Perlengkapan");
+            switch (pil){
+                case 1 -> dataEquipable.getItem(target, TypeEquip.WEAPONS);
+                case 2 -> dataEquipable.getItem(target, TypeEquip.SECONDARY_WEAPONS);
+                case 3 -> dataEquipable.getItem(target, TypeEquip.ARMOUR);
+                default -> stop = true;
+            }
+
             System.out.println("0> kembali");
 
             System.out.println("uang :"+target.getGold() + " coin");

@@ -18,4 +18,8 @@ public class Equipable extends Item{
 
         this.equipType = typeE;
     }
+
+    public TypeEquip getEquipType() {
+        return equipType;
+    }
 }
